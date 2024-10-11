@@ -1,6 +1,14 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+const clickFunc = () => {
+  alert("こんな感じで定義した関数が実行される");
+}
+
+const clickFunc2 = (msg) => {
+  alert(msg);
+}
 </script>
 
 <template>
@@ -8,7 +16,7 @@ import HelloWorld from './components/HelloWorld.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <HelloWorld msg="You did it!" :clickFunc="clickFunc" :clickFunc2="clickFunc2"/>
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
