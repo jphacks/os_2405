@@ -5,6 +5,17 @@ import InputField from '@/components/InputField.vue';
 const password = ref('');
 const errorMessage = ref('');
 
+defineProps({
+    label: {
+        type: String,
+        default: 'パスワード'
+    },
+    placeholder: {
+        type: String,
+        default: 'パスワードを入力'
+    }
+})
+
 const passwordRules = [
     (v) => !!v || 'パスワードを入力してください',
     (v) => v.length >= 8 || 'パスワードは8文字以上で入力してください'
@@ -36,9 +47,9 @@ watch(password, (value) => {
 
 <template>
     <InputField
-        label="パスワード"
+        :label="label"
         type="password"
-        placeholder="パスワードを入力"
+        :placeholder="placeholder"
         v-model:value="password"
         :rules="passwordRules"
         :error-message="errorMessage"
