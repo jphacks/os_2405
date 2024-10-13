@@ -18,10 +18,6 @@ const props = defineProps({
         type: String,
         default: 'ここに入力'
     },
-    rules: {
-        type: Array,
-        default: () => []
-    },
     width: {
       type: String,
       default: '100%'
