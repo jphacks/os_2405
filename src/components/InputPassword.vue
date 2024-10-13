@@ -38,6 +38,7 @@ watch(password, (value) => {
     <InputField
         label="パスワード"
         type="password"
+        placeholder="パスワードを入力"
         v-model:value="password"
         :rules="passwordRules"
         :error-message="errorMessage"
