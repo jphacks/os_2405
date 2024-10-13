@@ -38,5 +38,6 @@ watch(password, (value) => {
         v-model:value="password"
         :rules="passwordRules"
         :error-message="errorMessage"
+        @input="emit('update:password', password)"
     ></InputField>
 </template>
