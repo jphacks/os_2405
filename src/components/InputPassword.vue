@@ -16,24 +16,21 @@ const emit = defineEmits(['update:password']);
  * パスワードが指定のルールに従っているかチェックする
  * @param value チェックする値
  * @param rules チェックするルール
+ * @returns string エラーメッセージまたは空文字
  */
  const validatePassword = (value, rules) => {
-    console.log("value", value);
-    //ruleは(v) => !!v || 'パスワードを入力してください'のような関数
     for (const rule of rules) {
         const message = rule(value);
-        console.log("message", message);
         if (message !== true) {
-            errorMessage.value = message;
-            return false;
+            return message;
         }
     }
-    errorMessage.value = '';
-    return true;
+    return "";
 };
 
 watch(password, (value) => {
-    validatePassword(value, passwordRules);
+    const message = validatePassword(value, passwordRules);
+    errorMessage.value = message;
 });
 </script>
 
