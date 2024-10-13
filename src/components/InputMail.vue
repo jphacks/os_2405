@@ -37,9 +37,9 @@ const emit = defineEmits(['update:email']);
 
 <template>
     <InputField
-        label="メールアドレス"
+        :label="label"
         type="email"
-        placeholder="メールアドレスを入力"
+        :placeholder="placeholder"
         v-model:value="email"
         :error-message="errorMessage"
         @input="emit('update:email', email)"
