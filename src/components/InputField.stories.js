@@ -9,7 +9,6 @@ export default {
     value: { control: 'text' },
     placeholder: { control: 'text' },
     rules: { control: 'array' },
-    errorMessage: { control: 'text' },
     width: { control: 'text' },
   },
 };
@@ -29,6 +28,5 @@ Default.args = {
     value: '',
     placeholder: 'Enter text',
     rules: [],
-    errorMessage: '',
     width: '100%',
 };

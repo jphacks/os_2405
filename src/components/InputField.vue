@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 const props = defineProps({
     label: {
@@ -22,17 +22,22 @@ const props = defineProps({
         type: Array,
         default: () => []
     },
-    errorMessage: {
-      type: String,
-      default: ''
-    },
     width: {
       type: String,
       default: '100%'
+    },
+    errorMessage: {
+      type: String,
+      default: ''
     }
 })
 
-const hasError = computed(() => !!props.errorMessage);
+const emit = defineEmits(['update:value']);
+
+const hasError = computed(() => {
+    return props.errorMessage !== '';
+});
+
 </script>
 
 <template>
@@ -43,7 +48,7 @@ const hasError = computed(() => !!props.errorMessage);
         :type="type"
         :value="value"
         :placeholder="placeholder"
-        @input="$emit('input', $event.target.value)"
+        @input="emit('update:value', $event.target.value)"
         class="input-control"
         :class="{ 'input-error': hasError }"
       >
