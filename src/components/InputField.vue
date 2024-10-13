@@ -38,9 +38,8 @@ const hasError = computed(() => {
 
 <template>
     <div class="input-field" :style="{width: props.width }">
-      <label :for="id" class="input-label">{{ label }}</label>
+      <label class="input-label">{{ label }}</label>
       <input
-        :id="id"
         :type="type"
         :value="value"
         :placeholder="placeholder"
