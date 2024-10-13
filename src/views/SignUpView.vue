@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import InputMail from '@/components/InputMail.vue';
 import InputPassword from '@/components/InputPassword.vue';
+import CustomDivider from '@/components/CustomDivider.vue';
 
 const password = ref('');
 const passwordConfirmation = ref('');
@@ -9,8 +10,9 @@ const email = ref('');
 </script>
 
 <template>
+    <h1 class="title">新規登録</h1>
+    <CustomDivider text="または" />
     <div class="my-form">
-        <h1 class="title">新規登録</h1>
         <InputMail 
             label="メールアドレス"
             placeholder="sample@example.com" 
@@ -30,6 +32,10 @@ const email = ref('');
             color="primary"
             class="my-btn"
         >登録</v-btn>
+
+        <v-btn variant="text" color="primary" width="100%">
+            すでにアカウントを持っています
+        </v-btn>
     </div>
 </template>
 
@@ -43,6 +49,10 @@ const email = ref('');
     margin: 20px auto;
 }
 
+.center-text {
+    text-align: center;
+}
+
 .my-form {
     width: 80%;
     margin: 0 auto;
@@ -50,6 +60,6 @@ const email = ref('');
 
 .my-btn {
     width: 100%;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 </style>
