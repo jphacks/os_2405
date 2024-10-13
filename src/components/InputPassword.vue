@@ -14,6 +14,10 @@ defineProps({
     placeholder: {
         type: String,
         default: 'パスワードを入力'
+    },
+    width: {
+        type: String,
+        default: '100%'
     }
 })
 
@@ -39,5 +43,6 @@ watch(password, (value) => {
         :rules="passwordRules"
         :error-message="errorMessage"
         @input="emit('update:password', password)"
+        :width="width"
     ></InputField>
 </template>

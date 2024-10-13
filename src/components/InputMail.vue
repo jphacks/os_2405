@@ -11,6 +11,10 @@ defineProps({
     placeholder: {
         type: String,
         default: 'メールアドレスを入力'
+    },
+    width: {
+        type: String,
+        default: '100%'
     }
 });
 
@@ -27,6 +31,8 @@ watch(email, (value) => {
     const message = validate(value, emailRules);
     errorMessage.value = message;
 });
+
+const emit = defineEmits(['update:email']);
 </script>
 
 <template>
@@ -36,5 +42,7 @@ watch(email, (value) => {
         placeholder="メールアドレスを入力"
         v-model:value="email"
         :error-message="errorMessage"
+        @input="emit('update:email', email)"
+        :width="width"
     ></InputField>
 </template>
