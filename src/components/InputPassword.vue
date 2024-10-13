@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import InputField from '@/components/InputField.vue';
+import { validate } from '@/function';
 
 const password = ref('');
 const errorMessage = ref('');
@@ -23,24 +24,8 @@ const passwordRules = [
 
 const emit = defineEmits(['update:password']);
 
-/**
- * パスワードが指定のルールに従っているかチェックする
- * @param value チェックする値
- * @param rules チェックするルール
- * @returns string エラーメッセージまたは空文字
- */
- const validatePassword = (value, rules) => {
-    for (const rule of rules) {
-        const message = rule(value);
-        if (message !== true) {
-            return message;
-        }
-    }
-    return "";
-};
-
 watch(password, (value) => {
-    const message = validatePassword(value, passwordRules);
+    const message = validate(value, passwordRules);
     errorMessage.value = message;
 });
 </script>
