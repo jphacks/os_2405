@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import InputMail from '@/components/InputMail.vue';
 import InputPassword from '@/components/InputPassword.vue';
 import CustomDivider from '@/components/CustomDivider.vue';
+import ButtonWithLogo from '@/components/ButtonWithLogo.vue';
 
 const password = ref('');
 const passwordConfirmation = ref('');
@@ -11,8 +12,9 @@ const email = ref('');
 
 <template>
     <h1 class="title">新規登録</h1>
-    <CustomDivider text="または" />
     <div class="my-form">
+        <ButtonWithLogo class="center-block" button-text="Googleで登録"></ButtonWithLogo>
+        <CustomDivider text="または" />
         <InputMail 
             label="メールアドレス"
             placeholder="sample@example.com" 
@@ -30,8 +32,10 @@ const email = ref('');
         />
         <v-btn
             color="primary"
-            class="my-btn"
-        >登録</v-btn>
+            class="my-btn font-weight-bold"
+        >
+            登録
+        </v-btn>
 
         <v-btn variant="text" color="primary" width="100%">
             すでにアカウントを持っています
@@ -43,6 +47,7 @@ const email = ref('');
 .title {
     color: #1A69C8;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .center-block {

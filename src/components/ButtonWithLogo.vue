@@ -27,7 +27,7 @@ const handleClick = () => {
 
 <template>
 <v-btn
-    class="google-btn"
+    class="google-btn font-weight-bold"
     @click="handleClick"
     elevation="1"
     color="white"
