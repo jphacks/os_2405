@@ -3,6 +3,15 @@ defineProps({
   msg: {
     type: String,
     required: true
+  },
+  // ⇩追加 by hozumi⇩
+  clickFunc: {
+    type: Function,
+    required: true
+  },
+  clickFunc2: { //引数ありverの関数
+    type: Function,
+    required: true
   }
 })
 </script>
@@ -15,6 +24,9 @@ defineProps({
       <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
       <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
     </h3>
+    <h3>⇩追加 by hozumi⇩</h3>
+    <v-btn color="primary" @click="clickFunc">click!!</v-btn>
+    <v-btn @click="clickFunc2('testです')"></v-btn>
   </div>
 </template>
 
