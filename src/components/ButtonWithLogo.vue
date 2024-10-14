@@ -1,4 +1,5 @@
 <script setup>
+//TODO: Googleのロゴとかpropsで渡せるようにする
 import { ref } from 'vue'
 import googleLogo from '@/assets/google-logo.png'
 
