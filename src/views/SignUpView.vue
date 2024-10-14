@@ -61,6 +61,10 @@ const email = ref('');
 .my-form {
     width: 80%;
     margin: 0 auto;
+    
+    @media (min-width: 1024px) {
+        width: 50%;
+    }
 }
 
 .my-btn {
