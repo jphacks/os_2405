@@ -28,3 +28,11 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+# Ignore Yarn Plug'n'Play (PnP) files
+# These files are auto-generated during the environment setup
+.pnp.cjs
+.pnp.loader.mjs
+
+# Ignore the temporary installation file generated during the install process
+.yarn/install-state.gz
