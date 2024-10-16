@@ -1,4 +1,4 @@
-import router from "@/router/index";
+import router from "@/router";
 
 /**
  * 入力が指定のルールに従っているかチェックする
@@ -21,6 +21,7 @@ const validate = (value, rules) => {
  * @param string path 
  */
 const navigate = (path) => {
+    console.log(path)
     router.push(path);
 }
 

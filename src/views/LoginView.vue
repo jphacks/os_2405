@@ -5,6 +5,14 @@ import InputPassword from '@/components/InputPassword.vue';
 import CustomDivider from '@/components/CustomDivider.vue';
 import ButtonWithLogo from '@/components/ButtonWithLogo.vue';
 import {navigate} from '@/function';
+import { googleLogin } from '@/auth';
+
+defineProps({
+    onClick: {
+        type: Function,
+        default: () => googleLogin()
+    }
+})
 
 const email = ref('');
 const password = ref('');
@@ -13,7 +21,7 @@ const password = ref('');
 <template>
     <h1 class="title">ログイン</h1>
     <div class="my-form">
-        <ButtonWithLogo class="center-block"></ButtonWithLogo>
+        <ButtonWithLogo class="center-block" :on-click="onClick"></ButtonWithLogo>
         <CustomDivider text="または" />
         <InputMail 
             label="メールアドレス"

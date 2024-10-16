@@ -2,6 +2,10 @@
 import { setup } from '@storybook/vue3';
 import vuetify from '@/plugins/vuetify';
 
+jest.mock('@/config/firebase', () => ({
+  firebaseAuth: {},
+}));
+
 setup((app) => {
   app.use(vuetify)
 });
