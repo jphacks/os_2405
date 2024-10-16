@@ -4,6 +4,7 @@ import InputMail from '@/components/InputMail.vue';
 import InputPassword from '@/components/InputPassword.vue';
 import CustomDivider from '@/components/CustomDivider.vue';
 import ButtonWithLogo from '@/components/ButtonWithLogo.vue';
+import {navigate} from '@/function';
 
 const email = ref('');
 const password = ref('');
@@ -31,7 +32,7 @@ const password = ref('');
             ログイン
         </v-btn>
 
-        <v-btn variant="text" color="primary" width="100%">
+        <v-btn variant="text" color="primary" width="100%" @click="navigate('/signup')">
             新規アカウントを作成する
         </v-btn>
     </div>

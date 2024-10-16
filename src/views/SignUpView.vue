@@ -4,6 +4,7 @@ import InputMail from '@/components/InputMail.vue';
 import InputPassword from '@/components/InputPassword.vue';
 import CustomDivider from '@/components/CustomDivider.vue';
 import ButtonWithLogo from '@/components/ButtonWithLogo.vue';
+import {navigate} from '@/function';
 
 const password = ref('');
 const passwordConfirmation = ref('');
@@ -37,7 +38,7 @@ const email = ref('');
             登録
         </v-btn>
 
-        <v-btn variant="text" color="primary" width="100%">
+        <v-btn variant="text" color="primary" width="100%" @click="navigate('/login')">
             すでにアカウントを持っています
         </v-btn>
     </div>
