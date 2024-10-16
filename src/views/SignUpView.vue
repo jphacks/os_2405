@@ -5,10 +5,24 @@ import InputPassword from '@/components/InputPassword.vue';
 import CustomDivider from '@/components/CustomDivider.vue';
 import ButtonWithLogo from '@/components/ButtonWithLogo.vue';
 import {navigate} from '@/function';
+import { emailAuth } from '@/auth';
 
 const password = ref('');
 const passwordConfirmation = ref('');
 const email = ref('');
+
+const submitForm = async () => {
+    if (password.value !== passwordConfirmation.value) {
+        alert('パスワードが一致しません');
+        return;
+    }
+    try {
+        console.log(email.value, password.value);
+        await emailAuth(email.value, password.value);
+    }catch (error) {
+        alert(error.message);
+    }
+};
 </script>
 
 <template>
@@ -34,6 +48,7 @@ const email = ref('');
         <v-btn
             color="primary"
             class="my-btn font-weight-bold"
+            @click="submitForm"
         >
             登録
         </v-btn>
