@@ -36,3 +36,6 @@ coverage
 
 # Ignore the temporary installation file generated during the install process
 .yarn/install-state.gz
+
+# Ignore Firebase settings
+firebase.js
