@@ -26,6 +26,7 @@ const submitForm = async () => {
 </script>
 
 <template>
+    <v-icon color="red">mdi-login</v-icon>
     <h1 class="title">新規登録</h1>
     <div class="my-form">
         <ButtonWithLogo class="center-block" button-text="Googleで登録"></ButtonWithLogo>
