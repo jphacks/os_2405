@@ -8356,6 +8356,7 @@ __metadata:
     eslint-plugin-storybook: "npm:^0.9.0"
     eslint-plugin-vue: "npm:^9.23.0"
     firebase: "npm:^10.14.1"
+    material-design-icons-iconfont: "npm:^6.7.0"
     prettier: "npm:^3.2.5"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -8769,6 +8770,13 @@ __metadata:
   peerDependencies:
     react: ">= 0.14.0"
   checksum: 10c0/88213e64afd41d6934fbb70bcea0e2ef1f9553db1ba4c6f423b17d6e9c2b99c82b0fcbed29036dd5b91704b170803d1fae730ab40ae27af5c7994e2717686ebc
+  languageName: node
+  linkType: hard
+
+"material-design-icons-iconfont@npm:^6.7.0":
+  version: 6.7.0
+  resolution: "material-design-icons-iconfont@npm:6.7.0"
+  checksum: 10c0/21037623d981c1e964d427d8360d54931b390a3ad1d459a71aeb449fc073946d28517b8a9122d5042699c2ad622264af1088a3be5ba6e907c28f821288555686
   languageName: node
   linkType: hard
 
