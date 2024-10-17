@@ -21,7 +21,6 @@ const validate = (value, rules) => {
  * @param string path 
  */
 const navigate = (path) => {
-    console.log(path)
     router.push(path);
 }
 
