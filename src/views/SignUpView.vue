@@ -26,6 +26,7 @@ const submitForm = async () => {
         await emailAuth(email.value, password.value);
     }catch (error) {
         systemMessage.value = error.message;
+        isError.value = true;
     }
 };
 
