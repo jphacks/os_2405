@@ -1,36 +1,43 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import InputMail from '@/components/InputMail.vue';
 import InputPassword from '@/components/InputPassword.vue';
 import CustomDivider from '@/components/CustomDivider.vue';
 import ButtonWithLogo from '@/components/ButtonWithLogo.vue';
 import {navigate} from '@/function';
 import { emailAuth } from '@/auth';
+import MessageBox from '@/components/MessageBox.vue';
+import { googleLogin } from '@/auth';
 
 const password = ref('');
 const passwordConfirmation = ref('');
 const email = ref('');
+const systemMessage = ref('');
+const isError = ref(false);
 
 const submitForm = async () => {
+    systemMessage.value = '';
     if (password.value !== passwordConfirmation.value) {
-        alert('パスワードが一致しません');
+        systemMessage.value = 'パスワードが一致しません';
+        isError.value = true;
         return;
     }
     try {
-        console.log(email.value, password.value);
         await emailAuth(email.value, password.value);
     }catch (error) {
-        alert(error.message);
+        systemMessage.value = error.message;
     }
 };
+
+const isShow = computed(() => systemMessage.value !== '');
 </script>
 
 <template>
-    <v-icon color="red">mdi-login</v-icon>
     <h1 class="title">新規登録</h1>
     <div class="my-form">
-        <ButtonWithLogo class="center-block" button-text="Googleで登録"></ButtonWithLogo>
+        <ButtonWithLogo class="center-block" button-text="Googleで登録" :on-click="googleLogin"></ButtonWithLogo>
         <CustomDivider text="または" />
+        <MessageBox :message="systemMessage" v-show="isShow" :is-error="isError" class="my-5"/>
         <InputMail 
             label="メールアドレス"
             placeholder="sample@example.com" 
