@@ -1,6 +1,7 @@
 /** @type { import('@storybook/vue3').Preview } */
 import { setup } from '@storybook/vue3';
 import vuetify from '@/plugins/vuetify';
+import "@mdi/font/css/materialdesignicons.css";
 
 setup((app) => {
   app.use(vuetify)
