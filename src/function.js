@@ -1,3 +1,5 @@
+import router from "@/router";
+
 /**
  * 入力が指定のルールに従っているかチェックする
  * @param value チェックする値
@@ -14,4 +16,12 @@ const validate = (value, rules) => {
     return "";
 };
 
-export { validate };
+/**
+ * 画面遷移を行う用の関数
+ * @param string path 
+ */
+const navigate = (path) => {
+    router.push(path);
+}
+
+export { validate, navigate };
