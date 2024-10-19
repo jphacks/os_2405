@@ -6,6 +6,7 @@ export default {
   argTypes: {
     message: { control: 'text' },
     buttonText: { control: 'text' },
+    onclick: { action: 'clicked' },
   },
 };
 
@@ -21,4 +22,5 @@ export const Default = Template.bind({});
 Default.args = {
   message: '成功しました！',
   buttonText: '続ける',
+  onclick: () => { console.log('clicked'); },
 };

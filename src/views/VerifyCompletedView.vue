@@ -7,6 +7,10 @@ defineProps({
     buttonText: {
         type: String,
         required: true
+    },
+    onClick: {
+        type: Function,
+        required: true
     }
 })
 </script>
@@ -27,6 +31,7 @@ defineProps({
                 <v-btn
                     color="primary"
                     block
+                    @click="onClick"
                 >
                     {{ buttonText }}
                 </v-btn>

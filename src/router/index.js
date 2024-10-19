@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SignUpView from '@/views/SignUpView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,12 +14,19 @@ const router = createRouter({
       component: () => import('@/views/LoginView.vue')
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      path: '/mail-verification-completed',
+      name: 'mail-verification-completed',
+      component: () => import('@/views/MailVerificationCompletedView.vue')
+    },
+    {
+      path: '/mail-send-completed',
+      name: 'mail-send-completed',
+      component: () => import('@/views/MailSendCompletedView.vue')
+    },
+    {
+      path: '/profile-register-completed',
+      name: 'profile-register-completed',
+      component: () => import('@/views/ProfileRegisterCompletedView.vue')
     }
   ]
 })
