@@ -15,10 +15,12 @@ const email = ref('');
 const systemMessage = ref('');
 const isError = ref(false);
 
-
 //メール送信には時間がかかるため、ボタンを押したらローディングを表示する
 const emit = defineEmits(['update:loading']);
 
+/**
+ * フォームの入力内容を検証し、エラーがなければ登録処理を行う
+ */
 const submitForm = async () => {
     systemMessage.value = '';
     if (password.value !== passwordConfirmation.value) {
