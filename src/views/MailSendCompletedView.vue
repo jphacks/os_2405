@@ -23,7 +23,20 @@
                   ></v-icon>
                 </v-col>
               </v-row>
+              <v-btn
+                color="primary"
+                class="my-btn font-weight-bold"
+                >
+                ログイン画面に戻る
+              </v-btn>
             </v-sheet>
           </v-col>
         </v-row>
 </template>
+
+<style scoped>
+.my-btn {
+    width: 100%;
+    margin: 20px 0;
+}
+</style>
