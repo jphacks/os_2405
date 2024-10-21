@@ -26,7 +26,7 @@ const passwordRules = [
     (v) => v.length >= 8 || 'パスワードは8文字以上で入力してください'
 ]
 
-const emit = defineEmits(['update:password']);
+const emit = defineEmits(['update:password', 'error']);
 
 watch(password, (value) => {
     const message = validate(value, passwordRules);
@@ -43,6 +43,7 @@ watch(password, (value) => {
         :rules="passwordRules"
         :error-message="errorMessage"
         @input="emit('update:password', password)"
+        @error="emit('error', $event)"
         :width="width"
     ></InputField>
 </template>

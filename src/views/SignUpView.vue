@@ -4,7 +4,7 @@ import InputMail from '@/components/InputMail.vue';
 import InputPassword from '@/components/InputPassword.vue';
 import CustomDivider from '@/components/CustomDivider.vue';
 import ButtonWithLogo from '@/components/ButtonWithLogo.vue';
-import {navigate} from '@/function';
+import { navigate, areAllFieldsFilled } from '@/function';
 import { emailAuth } from '@/auth';
 import MessageBox from '@/components/MessageBox.vue';
 import { googleLogin } from '@/auth';
@@ -42,6 +42,14 @@ const submitForm = async () => {
 
 const isShow = computed(() => systemMessage.value !== '');
 
+const buttonFlag = ref(false);
+
+//ボタンが使える場合はtrue、使えない場合はfalse
+const buttonStateChange = (isVisible) => {
+    // v-btnの有効/無効を切り替える
+    // 全てのinputに入力がされるまでボタンを無効にする
+    buttonFlag.value = isVisible && areAllFieldsFilled(email.value, password.value, passwordConfirmation.value);
+};
 </script>
 
 <template>
@@ -54,21 +62,25 @@ const isShow = computed(() => systemMessage.value !== '');
             label="メールアドレス"
             placeholder="sample@example.com" 
             v-model:email="email"
+            @error="buttonStateChange"
         />
         <InputPassword 
             label="パスワード"
             placeholder="半角英数字記号のみ" 
             v-model:password="password"
+            @error="buttonStateChange"
         /> 
         <InputPassword 
             label="パスワード（再入力）"
             placeholder="半角英数字記号のみ"
             v-model:password="passwordConfirmation"
+            @error="buttonStateChange"
         />
         <v-btn
             color="primary"
             class="my-btn font-weight-bold"
             @click="submitForm"
+            :disabled="!buttonFlag"
         >
             登録
         </v-btn>
