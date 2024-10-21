@@ -58,11 +58,11 @@ watch(() => props.value, (value) => {
             >
             <v-icon class="calendar-icon">mdi-calendar</v-icon>
         </div>
+        <span v-if="hasError" class="error-message">{{ errorMessage }}</span>
         <div class="all-day-checkbox">
             <input type="checkbox" v-model="isAllDay" id="all-day">
             <label for="all-day">終日</label>
         </div>
-        <span v-if="hasError" class="error-message">{{ errorMessage }}</span>
     </div>
 </template>
 
