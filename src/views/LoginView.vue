@@ -1,10 +1,10 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import InputMail from '@/components/InputMail.vue';
 import InputPassword from '@/components/InputPassword.vue';
 import CustomDivider from '@/components/CustomDivider.vue';
 import ButtonWithLogo from '@/components/ButtonWithLogo.vue';
-import {navigate} from '@/function';
+import {navigate, areAllFieldsFilled} from '@/function';
 import { googleLogin } from '@/auth';
 
 defineProps({
@@ -16,6 +16,12 @@ defineProps({
 
 const email = ref('');
 const password = ref('');
+
+const buttonFlag = ref(false);
+
+watch([email, password], () => {
+    buttonFlag.value = areAllFieldsFilled(email.value, password.value);
+});
 </script>
 
 <template>
@@ -36,6 +42,7 @@ const password = ref('');
         <v-btn
             color="primary"
             class="my-btn font-weight-bold"
+            :disabled="!buttonFlag"
         >
             ログイン
         </v-btn>
