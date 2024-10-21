@@ -15,6 +15,12 @@ const email = ref('');
 const systemMessage = ref('');
 const isError = ref(false);
 
+//メール送信には時間がかかるため、ボタンを押したらローディングを表示する
+const emit = defineEmits(['update:loading']);
+
+/**
+ * フォームの入力内容を検証し、エラーがなければ登録処理を行う
+ */
 const submitForm = async () => {
     systemMessage.value = '';
     if (password.value !== passwordConfirmation.value) {
@@ -23,14 +29,19 @@ const submitForm = async () => {
         return;
     }
     try {
+        emit('update:loading', true);
         await emailAuth(email.value, password.value);
+        navigate('/mail-send-completed');
     }catch (error) {
         systemMessage.value = error.message;
         isError.value = true;
+    }finally {
+        emit('update:loading', false);
     }
 };
 
 const isShow = computed(() => systemMessage.value !== '');
+
 </script>
 
 <template>
