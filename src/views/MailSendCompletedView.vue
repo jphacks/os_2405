@@ -1,3 +1,7 @@
+<script setup>
+import { navigate } from '@/function';
+</script>
+
 <template>
     <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="6">
@@ -26,6 +30,7 @@
               <v-btn
                 color="primary"
                 class="my-btn font-weight-bold"
+                @click="navigate('/login')"
                 >
                 ログイン画面に戻る
               </v-btn>
