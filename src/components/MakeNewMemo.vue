@@ -29,5 +29,20 @@ const memo_name = ref('');
         v-model:value="memo_name"
         :width="width"
     ></InputField>
+    <v-row justify="center">
+        <v-btn 
+            color="primary"
+            class="my-btn font-weight-bold"
+        >
+            メモ帳を作成
+        </v-btn>
+    </v-row>
+    
 </template>
 
+<style scoped>
+.my-btn {
+    /* width: 40%; */
+    margin: 20px 0;
+}
+</style>
