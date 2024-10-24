@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup, fetchSignInMethodsForEmail, sendEmailVerification, createUserWithEmailAndPassword } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, sendEmailVerification, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { firebaseAuth } from '@/config/firebase';
 
 
@@ -18,6 +18,7 @@ const firebaseErrors = {
     'auth/user-disabled': 'このユーザーアカウントは無効化されています。',
     'auth/user-not-found': 'ユーザーが見つかりません。',
     'auth/wrong-password': 'パスワードが間違っています。',
+    'auth/invalid-credential': 'ユーザ名またはパスワードが間違っています。',
     'auth/network-request-failed': 'ネットワークリクエストに失敗しました。',
 };
 
@@ -43,4 +44,19 @@ const emailAuth = async (email, password) => {
     }
 }
 
-export { googleLogin, emailAuth };
+const emailLogin = async (email, password) => {
+    try {
+        const cred = await signInWithEmailAndPassword(firebaseAuth, email, password);
+        if (!cred.user.emailVerified) {
+            throw new Error('メール認証が完了していません。');
+        }
+    } catch (e) {
+        if (e.code in firebaseErrors) {
+            throw new Error(firebaseErrors[e.code]);
+        }else {
+            throw new Error('不明なエラーが発生しました。');
+        }
+    }
+}
+
+export { googleLogin, emailAuth, emailLogin };

@@ -50,12 +50,20 @@ const buttonStateChange = (isVisible) => {
     // 全てのinputに入力がされるまでボタンを無効にする
     buttonFlag.value = isVisible && areAllFieldsFilled(email.value, password.value, passwordConfirmation.value);
 };
+
+/**
+ * Googleアカウントでログインする
+ */
+const onClickGoogleLogin = async () => {
+    await googleLogin();
+    navigate('/');
+};
 </script>
 
 <template>
     <h1 class="title">新規登録</h1>
     <div class="my-form">
-        <ButtonWithLogo class="center-block" button-text="Googleで登録" :on-click="googleLogin"></ButtonWithLogo>
+        <ButtonWithLogo class="center-block" button-text="Googleで登録" :on-click="onClickGoogleLogin"></ButtonWithLogo>
         <CustomDivider text="または" />
         <MessageBox :message="systemMessage" v-show="isShow" :is-error="isError" class="my-5"/>
         <InputMail 

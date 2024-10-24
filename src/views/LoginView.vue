@@ -1,34 +1,68 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import InputMail from '@/components/InputMail.vue';
 import InputPassword from '@/components/InputPassword.vue';
 import CustomDivider from '@/components/CustomDivider.vue';
 import ButtonWithLogo from '@/components/ButtonWithLogo.vue';
 import {navigate, areAllFieldsFilled} from '@/function';
-import { googleLogin } from '@/auth';
+import { googleLogin, emailLogin } from '@/auth';
+import MessageBox from '@/components/MessageBox.vue';
 
-defineProps({
+const props = defineProps({
     onClick: {
         type: Function,
-        default: () => googleLogin()
+        default: async () => {
+            await googleLogin();
+            navigate('/');
+        }
+    },
+    systemMessageProp: {
+        type: String,
+        default: ''
     }
 })
 
 const email = ref('');
 const password = ref('');
-
+const systemMessage = ref(props.systemMessageProp);
 const buttonFlag = ref(false);
+const isError = ref(false);
+
+const isShowMessageBox = computed(() => systemMessage.value !== '');
 
 watch([email, password], () => {
     buttonFlag.value = areAllFieldsFilled(email.value, password.value);
 });
+
+const emit = defineEmits(['update:loading']);
+
+const submitLogin = async () => {
+    systemMessage.value = '';
+    // ログイン処理
+
+    try {
+        emit('update:loading', true);
+        await emailLogin(email.value, password.value);
+        emit('update:loading', false);
+    
+        navigate('/');
+    }catch (error) {
+        systemMessage.value = error.message;
+        isError.value = true;
+    }finally {
+        emit('update:loading', false);
+    }
+};
+
 </script>
 
 <template>
+    <p>{{ isShowMessageBox }}</p>
     <h1 class="title">ログイン</h1>
     <div class="my-form">
         <ButtonWithLogo class="center-block" :on-click="onClick"></ButtonWithLogo>
         <CustomDivider text="または" />
+        <MessageBox v-show="isShowMessageBox" :message="systemMessage" :isError=isError class="my-5"/>
         <InputMail 
             label="メールアドレス"
             placeholder="sample@example.com" 
@@ -43,6 +77,7 @@ watch([email, password], () => {
             color="primary"
             class="my-btn font-weight-bold"
             :disabled="!buttonFlag"
+            @click="submitLogin"
         >
             ログイン
         </v-btn>
