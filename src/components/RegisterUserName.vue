@@ -24,9 +24,9 @@ const user_name = ref('');
 </script>
 
 <template>
-    <v-dialog v-model="dialog" persistent max-width="800">
+    <v-dialog v-model="dialog" persistent max-width="400">
         <v-card>
-            <v-card-text>
+            <v-card-text class="input-container">
                 <InputField
                     :label="label"
                     type="text"
@@ -51,10 +51,14 @@ const user_name = ref('');
     </v-dialog>
     
 </template>
-
 <style scoped>
 .my-btn {
     /* width: 40%; */
     margin: 20px 0;
+}
+
+/* 上部の余白を設定 */
+.input-container {
+    margin-top: 40px; /* 余白を設定 */
 }
 </style>
