@@ -1,60 +1,26 @@
 <script setup>
-import AddItemDialog from '@/components/AddItemDialog.vue';
-import FloatingActionButtons from '@/components/FloatingActionButtons.vue';
-import TodoItem from '@/components/TodoItem.vue';
+import HomeContainer from '@/views/containers/HomeContainer.vue';
 import { ref } from 'vue';
+import { read } from '@/firestoreOperation';
 
-const dialog = ref(false);
-
-const openDialog = () => {
-    dialog.value = true;
-}
-
-defineProps({
-    items: {
-        type: Array,
-        default: () => []
+const items = ref([
+    {
+        title: 'タイトル1',
+    },
+    {
+        title: 'タイトル2',
     }
-})
+]);
 
+const test = async () => {
+    const data = await read(['items']);
+    console.log(data);
+    //items.valueの末尾に追加
+    items.value.push(...data);
+};
 </script>
 
 <template>
-    <v-sheet color="red-lighten-1">
-        あなたのタスク一覧
-    </v-sheet>
-
-    <TodoItem 
-        v-for="item in items"
-        :key="item"
-        :id="item.id"
-        :title="item.title"
-        :datetime="item.datetime"
-        :description="item.description"
-        :quantity="item.quantity"
-        class="my-8"
-    />
-
-    <FloatingActionButtons></FloatingActionButtons>
-
-    <v-dialog
-        v-model="dialog"
-        max-width="400"
-    >
-        <AddItemDialog 
-        />
-    </v-dialog>
-
-    <v-btn @click="openDialog">Open Dialog</v-btn>
+    <v-btn @click="test"></v-btn>
+    <HomeContainer :items="items"/>
 </template>
-
-<style scoped>
-.v-sheet {
-    display: inline-block;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    font-size: larger;
-}
-</style>

@@ -10,7 +10,7 @@ const props = defineProps({
         type: String,
         required: true
     },
-    datetime: {
+    deadline: {
         type: [Date, String],
         required: true
     },

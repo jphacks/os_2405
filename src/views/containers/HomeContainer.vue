@@ -33,8 +33,7 @@ const onClickPlusButton = () => {
         :key="item"
         :id="item.id"
         :title="item.title"
-        :datetime="item.datetime"
-        :description="item.description"
+        :deadline="item.deadline"
         :quantity="item.quantity"
         class="my-8"
     />

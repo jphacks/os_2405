@@ -32,7 +32,10 @@ const read = async (collectionPath) => {
     try {
         const dbCollection = collection(firestore, ...collectionPath);
         const snapshot = await getDocs(dbCollection);
-        const data = snapshot.docs.map(doc => doc.data());
+        const data = snapshot.docs.map(doc => ({
+            id: doc.id, // ドキュメントIDを追加
+            ...doc.data()
+        }));
         return data;
     } catch (e) {
         throw new Error(e);
@@ -49,7 +52,10 @@ const readWithCondition = async (collectionPath, condition) => {
     try {
         const dbCollection = collection(firestore, ...collectionPath);
         const snapshot = await getDocs(query(dbCollection, where(...condition)));
-        const data = snapshot.docs.map(doc => doc.data());
+        const data = snapshot.docs.map(doc => ({
+            id: doc.id, // ドキュメントIDを追加
+            ...doc.data()
+        }));
         return data;
     } catch (e) {
         throw new Error(e);
