@@ -1,7 +1,7 @@
 <script setup>
 import InputField from '@/components/InputField.vue';
 import { ref, watch } from 'vue';
-import { validate } from '@/function';
+import { areAllFieldsFilled, validate } from '@/function';
 
 defineProps({
     label: {
@@ -19,7 +19,20 @@ defineProps({
 });
 
 const dialog = ref(true);
-const user_name = ref('');
+const username = ref('');
+const errorMessage = ref('')
+
+const usernameRules = [
+    (v) => !!v || 'ユーザー名を入力してください'
+];
+
+watch(username, (value) => {
+    const message = validate(value, usernameRules);
+    errorMessage.value = message;
+    registerButtonFlag.value = errorMessage.value == '';
+});
+
+const registerButtonFlag = ref(false);
 
 </script>
 
@@ -31,7 +44,8 @@ const user_name = ref('');
                     :label="label"
                     type="text"
                     :placeholder="placeholder"
-                    v-model:value="user_name"
+                    v-model:value="username"
+                    :errorMessage="errorMessage"
                     :width="width"
                 ></InputField>
             </v-card-text>
@@ -41,6 +55,7 @@ const user_name = ref('');
                         color="primary"
                         class="my-btn font-weight-bold"
                         variant="elevated"
+                        :disabled="!registerButtonFlag"
                         @click="dialog = false"
                     >
                     登録する
