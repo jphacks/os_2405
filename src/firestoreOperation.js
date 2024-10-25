@@ -12,7 +12,7 @@ const create = async (collectionPath, data) => {
         if (!user) {
             throw new Error('ログインしていません。');
         }
-
+        
         // userIDをdataに追加
         data.userID = user.uid;
 

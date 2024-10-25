@@ -28,8 +28,6 @@ const submitForm = async () => {
         createdAt: new Date()
     }
 
-    console.log(addItem);
-
     try {
         await create(['items'], addItem);
     } catch (error) {
