@@ -1,5 +1,5 @@
 <script setup>
-import InputField from './InputField.vue';
+import InputField from '@/components/InputField.vue';
 import { ref, watch } from 'vue';
 import { validate } from '@/function';
 
