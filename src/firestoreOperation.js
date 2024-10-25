@@ -1,4 +1,4 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import { firestore, firebaseAuth } from "@/config/firebase";
 
 /**
@@ -12,7 +12,7 @@ const create = async (collectionPath, data) => {
         if (!user) {
             throw new Error('ログインしていません。');
         }
-        
+
         // userIDをdataに追加
         data.userID = user.uid;
 
