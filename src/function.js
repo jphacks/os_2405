@@ -17,6 +17,14 @@ const validate = (value, rules) => {
 };
 
 /**
+ * すべてのフィールドが入力されているかチェックする
+ * @param  {...any} fields
+ * @returns boolean
+ */
+const areAllFieldsFilled = (...fields) => 
+    fields.every(field => field !== '');
+
+/**
  * 画面遷移を行う用の関数
  * @param string path 
  */
@@ -24,4 +32,4 @@ const navigate = (path) => {
     router.push(path);
 }
 
-export { validate, navigate };
+export { validate, navigate, areAllFieldsFilled };

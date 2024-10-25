@@ -32,7 +32,7 @@ watch(email, (value) => {
     errorMessage.value = message;
 });
 
-const emit = defineEmits(['update:email']);
+const emit = defineEmits(['update:email', 'error']);
 </script>
 
 <template>
@@ -43,6 +43,7 @@ const emit = defineEmits(['update:email']);
         v-model:value="email"
         :error-message="errorMessage"
         @input="emit('update:email', email)"
+        @error="emit('error', $event)"
         :width="width"
     ></InputField>
 </template>

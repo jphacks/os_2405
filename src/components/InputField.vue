@@ -28,12 +28,16 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update:value']);
+const emit = defineEmits(['update:value', 'error']);
 
 const hasError = computed(() => {
     return props.errorMessage !== '';
 });
 
+//hasErrorの値が変わるたびにerrorイベントを発火
+watch(hasError, (flag) => {
+    emit('error', !flag);
+});
 </script>
 
 <template>
