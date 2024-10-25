@@ -31,6 +31,7 @@ defineProps({
             icon="mdi-pen-plus"
             class="me-4"
             @click="onClickPlusButton"
+            :size="60"
         >
         </v-btn>
         <v-btn
@@ -38,6 +39,7 @@ defineProps({
             color="primary"
             icon="mdi-menu"
             @click="onClickMenuButton"
+            :size="60"
         >
         </v-btn>
     </div>

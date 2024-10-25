@@ -1,5 +1,6 @@
 <script setup>
 import AddItemDialog from '@/components/AddItemDialog.vue';
+import FloatingActionButtons from '@/components/FloatingActionButtons.vue';
 import TodoItem from '@/components/TodoItem.vue';
 import { ref } from 'vue';
 
@@ -33,6 +34,8 @@ defineProps({
         :quantity="item.quantity"
         class="my-8"
     />
+
+    <FloatingActionButtons></FloatingActionButtons>
 
     <v-dialog
         v-model="dialog"
