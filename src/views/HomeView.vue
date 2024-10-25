@@ -4,6 +4,4 @@ import AddItemDialog from '@/components/AddItemDialog.vue';
 
 <template>
     <AddItemDialog />
-    <p>test</p>
-    <v-btn>aaa</v-btn>
 </template>

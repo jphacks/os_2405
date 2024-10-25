@@ -10,12 +10,6 @@ const title = ref('');
 const quantity = ref(0);
 
 const emit = defineEmits(['update:title', 'update:quantity', 'update:date'])
-watch(quantity, (value) => {
-    //const message = validate(value, dateRules);
-    //errorMessage.value = message;
-    
-    console.log(value);
-});
 
 /**
  * フォームの入力内容をFirestoreに登録する
