@@ -1,17 +1,16 @@
-// stories/TodoList.stories.js
-import HomeView from '@/views/HomeView.vue';
+import HomeContainer from '@/views/containers/HomeContainer.vue';
 
 export default {
-  title: 'HomeView',
-  component: HomeView,
+  title: 'HomeContainer',
+  component: HomeContainer,
 }
 
 const Template = (args) => ({
-  components: { HomeView },
+  components: { HomeContainer },
   setup() {
     return { args }
   },
-  template: '<HomeView v-bind="args" />',
+  template: '<HomeContainer v-bind="args" />',
 })
 
 export const Default = Template.bind({})
