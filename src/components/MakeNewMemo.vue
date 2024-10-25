@@ -18,25 +18,47 @@ defineProps({
     }
 });
 
+const dialog = ref(true);
 const memo_name = ref('');
+
 </script>
 
 <template>
-    <InputField
-        :label="label"
-        type="text"
-        :placeholder="placeholder"
-        v-model:value="memo_name"
-        :width="width"
-    ></InputField>
-    <v-row justify="center">
-        <v-btn 
-            color="primary"
-            class="my-btn font-weight-bold"
-        >
-            メモ帳を作成
-        </v-btn>
-    </v-row>
+    <v-dialog v-model="dialog" max-width="800">
+        <v-card>
+            <v-card-actions>
+                <v-row justify="end">
+                    <v-col cols="auto" justify="right">
+                        <v-btn icon @click="dialog = false">
+                            <v-icon
+                                icon="mdi-close"
+                            ></v-icon>
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-card-actions>
+            <v-card-text>
+                <InputField
+                    :label="label"
+                    type="text"
+                    :placeholder="placeholder"
+                    v-model:value="memo_name"
+                    :width="width"
+                ></InputField>
+            </v-card-text>
+            <v-card-actions>
+                <v-row justify="center">
+                    <v-btn 
+                        color="primary"
+                        class="my-btn font-weight-bold"
+                        @click="dialog = false"
+                    >
+                    メモ帳を作成
+                    </v-btn>
+                </v-row>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
     
 </template>
 
