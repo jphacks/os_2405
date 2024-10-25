@@ -14,10 +14,6 @@ const props = defineProps({
         type: [Date, String],
         required: true
     },
-    description: {
-        type: String,
-        default: ''
-    },
     quantity: {
         type: Number,
         default: 0
@@ -75,11 +71,6 @@ const formattedDateTime = computed(() => {
                         <div class="detail-item">
                             <div class="detail-label">数量</div>
                             <div>{{ quantity }}</div>
-                        </div>
-
-                        <div class="detail-item" v-if="description">
-                            <div class="detail-label">詳細</div>
-                            <div>{{ description }}</div>
                         </div>
                     </div>
                 </v-card-text>

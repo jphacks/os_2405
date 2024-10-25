@@ -17,10 +17,6 @@ export default {
       control: 'date',
       description: '登録日時'
     },
-    description: {
-      control: 'text',
-      description: 'アイテムの詳細説明'
-    },
     quantity: {
       control: { type: 'number', min: 0 },
       description: 'アイテムの数量'
@@ -34,7 +30,6 @@ export const Default = {
     id: '1',
     title: 'じゃがいも',
     datetime: '2024-08-01T12:00:00',
-    description: '北海道産の新じゃが',
     quantity: 5
   }
 };
@@ -45,7 +40,6 @@ export const LongTitle = {
     id: '2',
     title: 'とても長いタイトルのじゃがいもです。これは長いタイトルのテストケースです。',
     datetime: '2024-08-01T12:00:00',
-    description: '通常の説明文',
     quantity: 3
   }
 };
