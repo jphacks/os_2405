@@ -51,6 +51,7 @@ const memo_name = ref('');
                     <v-btn 
                         color="primary"
                         class="my-btn font-weight-bold"
+                        variant="elevated"
                         @click="dialog = false"
                     >
                     メモ帳を作成
