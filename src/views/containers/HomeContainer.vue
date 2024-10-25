@@ -47,8 +47,6 @@ const onClickPlusButton = () => {
         <AddItemDialog 
         />
     </v-dialog>
-
-    <v-btn @click="openDialog">Open Dialog</v-btn>
 </template>
 
 <style scoped>
