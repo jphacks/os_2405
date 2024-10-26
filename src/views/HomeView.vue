@@ -1,6 +1,6 @@
 <script setup>
-import HomeContainer from './containers/HomeContainer.vue';
-import WrapperContainer from './containers/WrapperContainer.vue';
+import HomeContainer from '@/views/containers/HomeContainer.vue';
+import WrapperContainer from '@/views/containers/WrapperContainer.vue';
 
 defineProps({
     items: {

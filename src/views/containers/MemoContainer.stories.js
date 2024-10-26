@@ -1,4 +1,4 @@
-import MemoContainer from "./MemoContainer.vue";
+import MemoContainer from "@/views/containers/MemoContainer.vue";
 
 export default {
   title: 'MemoContainer',
