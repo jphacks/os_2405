@@ -34,6 +34,10 @@ const signout = () => {
         console.error('Sign out error:', error);
     });
 };
+
+const addMemo = async () => {
+    
+};
 </script>
 
 <template>

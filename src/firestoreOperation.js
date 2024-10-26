@@ -17,8 +17,7 @@ const create = async (collectionPath, data) => {
         data.userID = user.uid;
 
         const dbCollection = collection(firestore, ...collectionPath);
-        await addDoc(dbCollection, data);
-
+        return await addDoc(dbCollection, data);
     } catch (e) {
         throw new Error(e);
     }
