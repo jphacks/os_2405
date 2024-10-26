@@ -57,7 +57,6 @@ const submitLogin = async () => {
 </script>
 
 <template>
-    <p>{{ isShowMessageBox }}</p>
     <h1 class="title">ログイン</h1>
     <div class="my-form">
         <ButtonWithLogo class="center-block" :on-click="onClick"></ButtonWithLogo>

@@ -36,24 +36,25 @@ const increment = () => {
 <template>
     <div class="number-input">
         <label class="label">{{ label }}</label>
-        <div class="input-container">
-            <v-icon 
-                class="control-icon"
-                @click="decrement"
-                :class="{ disabled: value <= min }"
-            >
-                mdi-minus-circle-outline
-            </v-icon>
-            <span class="value">{{ value }}</span>
-            <v-icon 
-                class="control-icon"
-                @click="increment"
-                :class="{ disabled: value >= max }"
-            >
-                mdi-plus-circle-outline
-            </v-icon>
+        <div class="input-wrapper">
+            <div class="input-container">
+                <v-icon 
+                    class="control-icon"
+                    @click="decrement"
+                    :class="{ disabled: value <= min }"
+                >
+                    mdi-minus-circle-outline
+                </v-icon>
+                <span class="value">{{ value }}</span>
+                <v-icon 
+                    class="control-icon"
+                    @click="increment"
+                    :class="{ disabled: value >= max }"
+                >
+                    mdi-plus-circle-outline
+                </v-icon>
+            </div>
         </div>
-  
     </div>
 </template>
 
@@ -68,6 +69,12 @@ const increment = () => {
     font-size: 1rem;
     font-weight: bold;
     color: #333;
+}
+
+.input-wrapper {
+    display: flex;
+    justify-content: center; /* 中央寄せのために追加 */
+    width: 100%;
 }
 
 .input-container {

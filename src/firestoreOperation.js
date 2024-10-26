@@ -1,4 +1,4 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { firestore, firebaseAuth } from "@/config/firebase";
 
 /**
@@ -12,7 +12,7 @@ const create = async (collectionPath, data) => {
         if (!user) {
             throw new Error('ログインしていません。');
         }
-        
+
         // userIDをdataに追加
         data.userID = user.uid;
 
@@ -32,7 +32,10 @@ const read = async (collectionPath) => {
     try {
         const dbCollection = collection(firestore, ...collectionPath);
         const snapshot = await getDocs(dbCollection);
-        const data = snapshot.docs.map(doc => doc.data());
+        const data = snapshot.docs.map(doc => ({
+            id: doc.id, // ドキュメントIDを追加
+            ...doc.data()
+        }));
         return data;
     } catch (e) {
         throw new Error(e);
@@ -45,15 +48,21 @@ const read = async (collectionPath) => {
  * @param {*} condition (例: ['price', '>', 1000])
  * @returns 
  */
-const readWithCondition = async (collectionPath, condition) => {
+const readWithConditionLoginUser = async (collectionPath) => {
     try {
+        const user = firebaseAuth.currentUser;
+        if (!user) throw new Error('User not logged in');
+        
         const dbCollection = collection(firestore, ...collectionPath);
-        const snapshot = await getDocs(query(dbCollection, where(...condition)));
-        const data = snapshot.docs.map(doc => doc.data());
+        const snapshot = await getDocs(query(dbCollection, where('userID', '==', user.uid)));
+        const data = snapshot.docs.map(doc => ({
+            id: doc.id, // ドキュメントIDを追加
+            ...doc.data()
+        }));
         return data;
     } catch (e) {
         throw new Error(e);
     }
 };
 
-export { create, read, readWithCondition };
+export { create, read, readWithConditionLoginUser };
