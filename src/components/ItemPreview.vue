@@ -30,6 +30,10 @@ const onClickEditButton = () => {
     openDialog();
 }
 
+const onClickDeleteButton = () => {
+    openDialog();
+}
+
 // ダイアログを閉じるための関数
 const closeDialog = () => {
     emit('close');
@@ -85,6 +89,15 @@ const closeDialog = () => {
                     @click="onClickEditButton"
                 >
                     編集
+                </v-btn>
+            </v-col>
+            <v-col cols="auto">
+                <v-btn
+                    color="red"
+                    class="mybtn font-weight-bold"
+                    @click="onClickDeleteButton"
+                >
+                    削除
                 </v-btn>
             </v-col>
         </v-row>
