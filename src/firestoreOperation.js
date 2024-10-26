@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where, doc, deleteDoc } from "firebase/firestore";
 import { firestore, firebaseAuth } from "@/config/firebase";
 
 /**
@@ -60,6 +60,21 @@ const readWithConditionLoginUser = async (collectionPath) => {
             ...doc.data()
         }));
         return data;
+    } catch (e) {
+        throw new Error(e);
+    }
+};
+
+/**
+ * 指定したIDのデータを削除する関数
+ * @param {*} collectionPath (例: ['users', 'userid', 'items'])
+ * @param {*} docId (削除したいドキュメントのID)
+ */
+const deleteById = async (collectionPath, docId) => {
+    try {
+        const dbCollection = collection(firestore, ...collectionPath);
+        const docRef = doc(dbCollection, docId); // ドキュメントリファレンスを取得
+        await deleteDoc(docRef); // ドキュメントを削除
     } catch (e) {
         throw new Error(e);
     }
