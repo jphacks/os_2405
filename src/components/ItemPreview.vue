@@ -3,13 +3,9 @@ import ItemDataField from '@/components/ItemDataField.vue';
 import { ref } from 'vue';
 
 defineProps({
-    label: {
-        type: String,
-        default: 'ラベル'
-    },
-    value: {
-        type: String,
-        default: '値'
+    informations: {
+        type: Array,
+        required: true
     },
     datafield_width: {
         type: String,
@@ -41,24 +37,22 @@ const dialog = ref(true);
                         編集
                     </v-btn>
                 </v-col>
+            </v-row>
 
-                <v-divider></v-divider>
+                
                
-                <ItemDataField
-                    :label="label"
-                    :value="value"
-                    :width="datafield_width"
-                    class="my-4"
-                ></ItemDataField>
+            <!-- ItemDataFieldを動的に生成 -->
+            <v-row justify="center">
+                <v-col v-for="(info, index) in informations" :key="index" cols="12" class=" text-center">
+                    <v-divider></v-divider>
 
-                <v-divider></v-divider>
-
-                <ItemDataField
-                    :label="label"
-                    :value="value"
-                    :width="datafield_width"
-                    class="my-4"
-                ></ItemDataField>
+                    <ItemDataField
+                        :label="info.label"
+                        :value="info.value"
+                        :width="datafield_width"
+                        class="my-4"
+                    ></ItemDataField>
+                </v-col>
             </v-row>
         </v-card>
         

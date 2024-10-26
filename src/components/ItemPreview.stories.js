@@ -15,5 +15,10 @@ const Template = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-
+    informations: [
+        { label: '個数', value: '1' },
+        { label: '期限', value: '2024/10/26' },
+        { label: 'メモ帳', value: 'ドラッグストア' },
+    ],
+    datafield_width: '80%',
 };
