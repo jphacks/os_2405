@@ -80,4 +80,4 @@ const deleteById = async (collectionPath, docId) => {
     }
 };
 
-export { create, read, readWithConditionLoginUser };
+export { create, read, readWithConditionLoginUser , deleteById};

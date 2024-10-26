@@ -1,14 +1,19 @@
 <script setup>
 import ItemDataField from '@/components/ItemDataField.vue';
 import AddItemDialog from '@/components/AddItemDialog.vue';
+import { deleteById } from '@/firestoreOperation';
 import { ref } from 'vue';
 
 const emit = defineEmits(['close'])
 
-defineProps({
+const props = defineProps({
     title: {
         type: String,
         default: '商品名'
+    },
+    id: {
+        type: [String, Number],
+        required: true
     },
     informations: {
         type: Array,
@@ -30,8 +35,17 @@ const onClickEditButton = () => {
     openDialog();
 }
 
-const onClickDeleteButton = () => {
-    openDialog();
+// 削除ボタンでアイテムデータを削除
+const onClickDeleteButton = async () => {
+    const confirmed = confirm("本当に削除しますか？");
+    if (confirmed) {
+        try {
+            await deleteById(['items'], props.id); 
+            closeDialog(); 
+        } catch (error) {
+            console.error("削除に失敗しました:", error);
+        }
+    }
 }
 
 // ダイアログを閉じるための関数

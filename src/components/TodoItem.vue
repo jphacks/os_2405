@@ -76,6 +76,7 @@ const formattedDateTime = computed(() => {
         >
             <ItemPreview 
                 :title="title"
+                :id="id"
                 :informations="[
                     { label: '個数', value: quantity},
                     { label: '期限', value: formattedDateTime },
