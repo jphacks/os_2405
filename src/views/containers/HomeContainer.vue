@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-    <v-sheet color="red-lighten-1">
+    <v-sheet color="red-lighten-1" class="mt-8">
         あなたの買い物一覧
     </v-sheet>
 
