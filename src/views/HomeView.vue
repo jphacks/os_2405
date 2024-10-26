@@ -1,19 +1,20 @@
 <script setup>
 import HomeContainer from '@/views/containers/HomeContainer.vue';
 import { ref } from 'vue';
-import { read } from '@/firestoreOperation';
+import { read, readWithConditionLoginUser } from '@/firestoreOperation';
 
-const items = ref([
-    {
-        title: 'タイトル1',
-    },
-    {
-        title: 'タイトル2',
-    }
-]);
+const items = ref([]);
+
+//マウント時に実行
+onMounted(async () => {
+    //データの取得
+    const data = await readWithConditionLoginUser(['items']);
+    items.value = data;
+});
 
 const test = async () => {
-    const data = await read(['items']);
+    //現在ログイン中のユーザーのデータを取得
+    const data = await readWithConditionLoginUser(['items']);
     console.log(data);
     //items.valueの末尾に追加
     items.value.push(...data);

@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { firestore, firebaseAuth } from "@/config/firebase";
 
 /**
@@ -48,10 +48,13 @@ const read = async (collectionPath) => {
  * @param {*} condition (例: ['price', '>', 1000])
  * @returns 
  */
-const readWithCondition = async (collectionPath, condition) => {
+const readWithConditionLoginUser = async (collectionPath) => {
     try {
+        const user = firebaseAuth.currentUser;
+        if (!user) throw new Error('User not logged in');
+        
         const dbCollection = collection(firestore, ...collectionPath);
-        const snapshot = await getDocs(query(dbCollection, where(...condition)));
+        const snapshot = await getDocs(query(dbCollection, where('userID', '==', user.uid)));
         const data = snapshot.docs.map(doc => ({
             id: doc.id, // ドキュメントIDを追加
             ...doc.data()
@@ -62,4 +65,4 @@ const readWithCondition = async (collectionPath, condition) => {
     }
 };
 
-export { create, read, readWithCondition };
+export { create, read, readWithConditionLoginUser };
