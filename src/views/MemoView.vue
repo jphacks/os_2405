@@ -1,4 +1,5 @@
 <script setup>
+import Navigationvar from '@/components/Navigationvar.vue';
 import MemoContainer from './containers/MemoContainer.vue';
 
 //TODO: 後で変える
@@ -13,6 +14,11 @@ const sampleMemos = [
 </script>
 
 <template>
+    <Navigationvar
+    
+    >
+
+    </Navigationvar>
     <MemoContainer
         title="後で変える"
         :items="sampleMemos"

@@ -1,29 +1,12 @@
 <script setup>
-import AddItemDialog from '@/components/AddItemDialog.vue';
-import FloatingActionButtons from '@/components/FloatingActionButtons.vue';
 import TodoItem from '@/components/TodoItem.vue';
-import { ref } from 'vue';
-
-const dialog = ref(false);
-
-const openDialog = () => {
-    dialog.value = true;
-}
 
 defineProps({
     items: {
         type: Array,
         default: () => []
     },
-    onClickMenuButton: {
-        type: Function,
-        required: true
-    }
 })
-
-const onClickPlusButton = () => {
-    openDialog();
-}
 
 </script>
 
@@ -41,20 +24,6 @@ const onClickPlusButton = () => {
         :quantity="item.quantity"
         class="my-8"
     />
-
-    <FloatingActionButtons 
-        :on-click-plus-button="onClickPlusButton"
-        :on-click-menu-button="onClickMenuButton"
-    
-    ></FloatingActionButtons>
-
-    <v-dialog
-        v-model="dialog"
-        max-width="400"
-    >
-        <AddItemDialog 
-        />
-    </v-dialog>
 </template>
 
 <style scoped>
