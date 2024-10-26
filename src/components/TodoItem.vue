@@ -62,12 +62,13 @@ const formattedDateTime = computed(() => {
             max-width="500px"
         >
             <ItemPreview 
+                :title="title"
                 :informations="[
                     { label: '個数', value: quantity},
                     { label: '期限', value: formattedDateTime },
                     { label: 'メモ帳', value: 'ドラッグストア' },
                 ]"
-                @close="dialog = false"
+                
             />
         </v-dialog>
     </div>

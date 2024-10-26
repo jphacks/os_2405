@@ -4,6 +4,10 @@ import AddItemDialog from '@/components/AddItemDialog.vue';
 import { ref } from 'vue';
 
 defineProps({
+    title: {
+        type: String,
+        default: '商品名'
+    },
     informations: {
         type: Array,
         required: true
@@ -51,7 +55,7 @@ const onClickEditButton = () => {
         <v-row justify="center">
             <v-col cols="auto">
                 <h1>
-                    商品名
+                    {{ title }} 
                 </h1>
             </v-col>
         </v-row>
