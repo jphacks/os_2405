@@ -1,6 +1,7 @@
 <script setup>
 import Navigationvar from '@/components/Navigationvar.vue';
 import MemoContainer from './containers/MemoContainer.vue';
+import WrapperContainer from './containers/WrapperContainer.vue';
 
 //TODO: 後で変える
 const sampleMemos = [
@@ -14,14 +15,12 @@ const sampleMemos = [
 </script>
 
 <template>
-    <Navigationvar
-    
-    >
 
-    </Navigationvar>
-    <MemoContainer
-        title="後で変える"
-        :items="sampleMemos"
-    ></MemoContainer>
+    <WrapperContainer>
+        <MemoContainer
+            title="後で変える"
+            :items="sampleMemos"
+        ></MemoContainer>
+    </WrapperContainer>
 
 </template>
