@@ -43,8 +43,7 @@ const read = async (collectionPath) => {
 
 /**
  * 条件を指定してデータを読み込む関数
- * @param {*} collectionPath (例: ['users', 'userid', 'items'])
- * @param {*} condition (例: ['price', '>', 1000])
+ * @param {*} collectionPath (例: ['items'])
  * @returns 
  */
 const readWithConditionLoginUser = async (collectionPath) => {
