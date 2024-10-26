@@ -13,7 +13,7 @@ const openDialog = () => {
 /**
  * フォームの入力内容をFirestoreに登録する
  */
- const submitForm = async (title, quantity, date) => {
+ const submitNewData = async (title, quantity, date) => {
     const addItem = {
         title: title,
         quantity: quantity,
@@ -71,7 +71,7 @@ const onClickPlusButton = () => {
         max-width="400"
     >
         <AddItemDialog 
-            :button_function="submitForm"
+            :button_function="submitNewData"
             button_text="登録する"
         />
     </v-dialog>
