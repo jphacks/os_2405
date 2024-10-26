@@ -1,5 +1,4 @@
 <script setup>
-import HomeContainer from '@/views/containers/HomeContainer.vue';
 import { ref, onMounted } from 'vue';
 import { readWithConditionLoginUser } from '@/firestoreOperation';
 import Navigationvar from '@/components/Navigationvar.vue';
