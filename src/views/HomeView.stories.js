@@ -7,5 +7,5 @@ export default {
 
 export const Default = () => ({
   components: { HomeView },
-  template: '<HomeView />',
+  template: '<v-app><HomeView /></v-app>',
 });

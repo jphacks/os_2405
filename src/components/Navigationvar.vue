@@ -24,6 +24,7 @@ defineProps({
         width="256"
         :rail="rail" 
         permanent
+        color="grey-lighten-5"
         class="nav-font"
         >
         <!-- Hamburger Menu Header -->
@@ -43,6 +44,7 @@ defineProps({
             <v-list-item
                 prepend-icon="mdi-account"
                 value="personal"
+                @click="myTaskButton"
             >
                 <span v-show="!rail">
                     個人タスク
@@ -53,6 +55,7 @@ defineProps({
             <v-list-item
                 prepend-icon="mdi-note-text"
                 value="memos"
+                @click="memoButton"
             >
                 <span v-show="!rail">
                     メモ
