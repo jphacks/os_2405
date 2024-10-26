@@ -68,11 +68,11 @@ const settingsClick = () => {
                 <span v-show="!rail">
                     メモ
                 </span>
-                </v-list-item>
+            </v-list-item>
                 
-                <v-list-group value="settings">
-                    <template v-slot:activator="{ props }">
-                        <v-list-item
+            <v-list-group value="settings">
+                <template v-slot:activator="{ props }">
+                    <v-list-item
                         v-bind="props"
                         prepend-icon="mdi-cog"
                         @click="settingsClick"
@@ -81,8 +81,8 @@ const settingsClick = () => {
                             設定
                         </span>
                     </v-list-item>
-                </template>
-                
+                 </template>
+            
                 <v-list-item
                     prepend-icon="mdi-logout"
                     value="logout"
