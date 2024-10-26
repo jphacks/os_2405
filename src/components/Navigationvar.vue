@@ -16,7 +16,7 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
-    memoCreateButoon: {
+    memoCreateButton: {
         type: Function,
         required: true
     }

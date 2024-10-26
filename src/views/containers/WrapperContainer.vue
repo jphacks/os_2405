@@ -35,8 +35,8 @@ const signout = () => {
     });
 };
 
-const addMemo = async () => {
-    
+const memoCreateButoon = async () => {
+
 };
 </script>
 
