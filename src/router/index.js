@@ -42,7 +42,7 @@ const router = createRouter({
       path: '/memos',
       name: 'memos',
       component: () => import('@/views/MemosView.vue'),
-      
+      meta: { requireAuth: true }
     }
   ]
 })
