@@ -10,6 +10,24 @@ const openDialog = () => {
     dialog.value = true;
 }
 
+/**
+ * フォームの入力内容をFirestoreに登録する
+ */
+ const submitForm = async (title, quantity, date) => {
+    const addItem = {
+        title: title,
+        quantity: quantity,
+        deadline: date,
+        createdAt: new Date()
+    }
+
+    try {
+        await create(['items'], addItem);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 defineProps({
     items: {
         type: Array,
@@ -53,6 +71,8 @@ const onClickPlusButton = () => {
         max-width="400"
     >
         <AddItemDialog 
+            :button_function="submitForm"
+            button_text="登録する"
         />
     </v-dialog>
 </template>
