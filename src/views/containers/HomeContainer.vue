@@ -1,14 +1,5 @@
 <script setup>
-import AddItemDialog from '@/components/AddItemDialog.vue';
-import FloatingActionButtons from '@/components/FloatingActionButtons.vue';
 import TodoItem from '@/components/TodoItem.vue';
-import { ref } from 'vue';
-
-const dialog = ref(false);
-
-const openDialog = () => {
-    dialog.value = true;
-}
 
 /**
  * フォームの入力内容をFirestoreに登録する
@@ -33,20 +24,12 @@ defineProps({
         type: Array,
         default: () => []
     },
-    onClickMenuButton: {
-        type: Function,
-        required: true
-    }
 })
-
-const onClickPlusButton = () => {
-    openDialog();
-}
 
 </script>
 
 <template>
-    <v-sheet color="red-lighten-1">
+    <v-sheet color="red-lighten-1" class="mt-8">
         あなたの買い物一覧
     </v-sheet>
 
@@ -59,23 +42,6 @@ const onClickPlusButton = () => {
         :quantity="item.quantity"
         class="my-8"
     />
-
-    <FloatingActionButtons 
-        :on-click-plus-button="onClickPlusButton"
-        :on-click-menu-button="onClickMenuButton"
-    
-    ></FloatingActionButtons>
-
-    <v-dialog
-        v-model="dialog"
-        max-width="400"
-    >
-        <AddItemDialog 
-            :button_function="submitNewData"
-            button_text="登録する"
-            @close="dialog = false"
-        />
-    </v-dialog>
 </template>
 
 <style scoped>
