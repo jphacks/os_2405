@@ -84,6 +84,7 @@ const formattedDateTime = computed(() => {
     cursor: pointer;
     transition: all 0.2s ease;
     overflow: hidden;
+    width: 100%; 
 }
 
 .title-card:hover {
