@@ -3,6 +3,8 @@ import ItemDataField from '@/components/ItemDataField.vue';
 import AddItemDialog from '@/components/AddItemDialog.vue';
 import { ref } from 'vue';
 
+const emit = defineEmits(['close'])
+
 defineProps({
     title: {
         type: String,
@@ -28,6 +30,11 @@ const onClickEditButton = () => {
     openDialog();
 }
 
+// ダイアログを閉じるための関数
+const closeDialog = () => {
+    emit('close');
+};
+
 /**
  * フォームで入力された変更内容を反映させる
  * （詳細な実装は後回し中）
@@ -51,7 +58,17 @@ const onClickEditButton = () => {
 </script>
 
 <template>
-    <v-card class="py-10">
+    <v-card class="custom-padding">
+        <v-card-title class="d-flex justify-end pa-0 mb-4 close-btn-wrapper">
+            <v-btn
+                icon
+                variant="text"
+                @click=closeDialog
+            >
+                <v-icon>mdi-close</v-icon>
+            </v-btn>
+        </v-card-title>
+
         <v-row justify="center">
             <v-col cols="auto">
                 <h1>
@@ -104,5 +121,15 @@ const onClickEditButton = () => {
 .my-btn {
     /* width: 40%; */
     margin: 20px 0;
+}
+
+.form-content {
+    position: relative;
+    padding-top: 48px;
+}
+
+.custom-padding {
+    padding-top: 8px; /* 上の余白 */
+    padding-bottom: 32px; /* 下の余白 */
 }
 </style>

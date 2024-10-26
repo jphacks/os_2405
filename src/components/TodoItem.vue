@@ -68,7 +68,7 @@ const formattedDateTime = computed(() => {
                     { label: '期限', value: formattedDateTime },
                     { label: 'メモ帳', value: 'ドラッグストア' },
                 ]"
-                
+                @close="dialog = false"
             />
         </v-dialog>
     </div>
