@@ -24,6 +24,26 @@ const onClickEditButton = () => {
     openDialog();
 }
 
+/**
+ * フォームで入力された変更内容を反映させる
+ * （詳細な実装は後回し中）
+ */
+ const submitEditData = async (title, quantity, date) => {
+    // const addItem = {
+    //     title: title,
+    //     quantity: quantity,
+    //     deadline: date,
+    //     createdAt: new Date()
+    // }
+
+    // try {
+    //     await create(['items'], addItem);
+    // } catch (error) {
+    //     console.error(error);
+    // }
+    console.log('変更を保存するボタンが押されました')
+}
+
 </script>
 
 <template>
@@ -68,7 +88,10 @@ const onClickEditButton = () => {
         v-model="dialog"
         max-width="400"
     >
-        <AddItemDialog />
+        <AddItemDialog 
+            :button_function="submitEditData"
+            button_text="変更を保存する"
+        />
     </v-dialog>
 </template>
 
