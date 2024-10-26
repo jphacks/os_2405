@@ -73,6 +73,7 @@ const onClickPlusButton = () => {
         <AddItemDialog 
             :button_function="submitNewData"
             button_text="登録する"
+            @close="dialog = false"
         />
     </v-dialog>
 </template>

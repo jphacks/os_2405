@@ -9,7 +9,7 @@ const date = ref('');
 const title = ref('');
 const quantity = ref(0);
 
-const emit = defineEmits(['update:title', 'update:quantity', 'update:date'])
+const emit = defineEmits(['update:title', 'update:quantity', 'update:date', 'close'])
 
 defineProps({
     button_function: {
@@ -22,6 +22,11 @@ defineProps({
     },
 });
 
+// ダイアログを閉じるための関数
+const closeDialog = () => {
+    emit('close');
+};
+
 </script>
 
 <template>
@@ -31,7 +36,7 @@ defineProps({
             <v-btn
                 icon
                 variant="text"
-                @click="closeDialog"
+                @click=closeDialog
             >
                 <v-icon>mdi-close</v-icon>
             </v-btn>

@@ -91,6 +91,7 @@ const onClickEditButton = () => {
         <AddItemDialog 
             :button_function="submitEditData"
             button_text="変更を保存する"
+            @close="dialog = false"
         />
     </v-dialog>
 </template>
