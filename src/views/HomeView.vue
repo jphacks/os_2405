@@ -1,7 +1,7 @@
 <script setup>
 import HomeContainer from '@/views/containers/HomeContainer.vue';
 import { ref } from 'vue';
-import { read, readWithConditionLoginUser } from '@/firestoreOperation';
+import { readWithConditionLoginUser } from '@/firestoreOperation';
 
 const items = ref([]);
 
