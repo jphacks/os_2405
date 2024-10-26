@@ -46,6 +46,11 @@ const formattedDateTime = computed(() => {
             @click="dialog = true"
         >
             <div class="content-wrapper">
+                <v-checkbox
+                    v-model="isChecked" 
+                    @change_state="updateCheckbox"
+                    class="checkbox"
+                ></v-checkbox>
                 <div class="title-wrapper">
                     <div class="title">{{ title }}</div>
                 </div>
