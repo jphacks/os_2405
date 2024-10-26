@@ -37,6 +37,12 @@ const router = createRouter({
       name: 'home',
       component: () => import('@/views/HomeView.vue'),
       meta: { requireAuth: true }
+    },
+    {
+      path: '/memos',
+      name: 'memos',
+      component: () => import('@/views/MemoView.vue'),
+      meta: { requireAuth: true }
     }
   ]
 })
