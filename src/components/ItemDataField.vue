@@ -9,13 +9,17 @@ const props = defineProps({
     value: {
         type: String,
         default: ''
+    },
+    width: {
+        type: String,
+        default: '80%'
     }
 })
 
 </script>
 
 <template>
-    <div>
+    <div :style="{width: props.width }">
         <v-row>
             <v-col cols="6">
                 <span>{{ label }}</span>
