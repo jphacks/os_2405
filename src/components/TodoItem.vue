@@ -23,6 +23,13 @@ const props = defineProps({
 
 const dialog = ref(false);
 
+// チェックボックスのフラグ管理(データベースの値を反映させられるように！)
+const isChecked = ref(false);
+
+const updateCheckbox = () => {
+    isChecked=!isChecked;
+};
+
 /**
  * 日時をフォーマットする
  * 例) 2022/01/01 12:00
@@ -48,7 +55,8 @@ const formattedDateTime = computed(() => {
             <div class="content-wrapper">
                 <v-checkbox
                     v-model="isChecked" 
-                    @change_state="updateCheckbox"
+                    @change="updateCheckbox"
+                    @click.stop
                     class="checkbox"
                 ></v-checkbox>
                 <div class="title-wrapper">
