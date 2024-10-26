@@ -25,6 +25,12 @@ const settingsClick = () => {
         emit('update:rail', false);
     }
 }
+
+// 新しい関数を追加（実際の実装は親コンポーネントで行う）
+const handleAddMemo = (e) => {
+    e.stopPropagation(); // イベントの伝播を停止
+    // ここで親コンポーネントのメソッドを呼び出す
+}
 </script>
 
 <template>
@@ -60,16 +66,45 @@ const settingsClick = () => {
             </v-list-item>
 
             <!-- Memo List -->
-            <v-list-item
-                prepend-icon="mdi-note-text"
-                value="memos"
-                @click="memoButton"
-            >
-                <span v-show="!rail">
-                    メモ
-                </span>
-            </v-list-item>
+            <!-- Memo List -->
+            <v-list-group value="memo">
+                <template v-slot:activator="{ props }">
+                    <v-list-item
+                        v-bind="props"
+                        prepend-icon="mdi-note-text"
+                        @click="memoButton"
+                        class="memo-item"
+                    >
+                        <div class="d-flex align-center w-100">
+                            <span v-show="!rail" class="flex-grow-1">
+                                メモ
+                            </span>
+                            <v-btn
+                                v-show="!rail"
+                                icon="mdi-plus"
+                                density="compact"
+                                size="small"
+                                variant="text"
+                                class="add-button mr-2"
+                                @click="handleAddMemo"
+                            />
+                        </div>
+                    </v-list-item>
+                </template>
+                <v-list-item
+                    prepend-icon="mdi-logout"
+                    value="logout"
+                    @click="handleLogout"
+                    class="pl-4"
+                >
+                    <span v-show="!rail">
+                        ログアウト
+                    </span>
+                </v-list-item>
+    
+            </v-list-group>
                 
+            <!-- Settings -->
             <v-list-group value="settings">
                 <template v-slot:activator="{ props }">
                     <v-list-item
@@ -114,5 +149,15 @@ span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.add-button {
+    position: absolute;
+    right: 32px; /* 矢印の位置に合わせて調整 */
+}
+
+/* プラスボタンのホバー時のスタイル */
+.add-button:hover {
+    background-color: rgba(0, 0, 0, 0.04);
 }
 </style>
