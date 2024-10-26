@@ -15,6 +15,10 @@ const props = defineProps({
     rail: {
         type: Boolean,
         default: false
+    },
+    memoCreateButoon: {
+        type: Function,
+        required: true
     }
 })
 
@@ -24,12 +28,6 @@ const settingsClick = () => {
     if(props.rail) {
         emit('update:rail', false);
     }
-}
-
-// 新しい関数を追加（実際の実装は親コンポーネントで行う）
-const handleAddMemo = (e) => {
-    e.stopPropagation(); // イベントの伝播を停止
-    // ここで親コンポーネントのメソッドを呼び出す
 }
 </script>
 
@@ -44,11 +42,11 @@ const handleAddMemo = (e) => {
         <!-- Hamburger Menu Header -->
         <div class="d-flex align-center py-3 px-4">
             <v-btn
-            density="compact"
-            icon="mdi-menu"
-            variant="text"
-            @click="emit('update:rail', !rail)"
-            class="d-md-none"
+                density="compact"
+                icon="mdi-menu"
+                variant="text"
+                @click="emit('update:rail', !rail)"
+                class="d-md-none"
             />
             <v-spacer />
         </div>
@@ -86,7 +84,7 @@ const handleAddMemo = (e) => {
                                 size="small"
                                 variant="text"
                                 class="add-button mr-2"
-                                @click="handleAddMemo"
+                                @click="memoCreateButoon"
                             />
                         </div>
                     </v-list-item>
