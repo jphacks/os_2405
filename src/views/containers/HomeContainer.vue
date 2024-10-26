@@ -14,6 +14,10 @@ defineProps({
     items: {
         type: Array,
         default: () => []
+    },
+    onClickMenuButton: {
+        type: Function,
+        required: true
     }
 })
 
@@ -38,7 +42,11 @@ const onClickPlusButton = () => {
         class="my-8"
     />
 
-    <FloatingActionButtons :on-click-plus-button="onClickPlusButton"></FloatingActionButtons>
+    <FloatingActionButtons 
+        :on-click-plus-button="onClickPlusButton"
+        :on-click-menu-button="onClickMenuButton"
+    
+    ></FloatingActionButtons>
 
     <v-dialog
         v-model="dialog"

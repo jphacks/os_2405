@@ -1,9 +1,5 @@
 <script setup>
-import { ref } from 'vue'
-
-const rail = ref(true)
-
-defineProps({
+const props = defineProps({
     handleLogout: {
         type: Function,
         required: true
@@ -16,7 +12,19 @@ defineProps({
         type: Function,
         required: true
     },
+    rail: {
+        type: Boolean,
+        default: false
+    }
 })
+
+const emit = defineEmits(['update:rail'])
+
+const settingsClick = () => {
+    if(props.rail) {
+        emit('update:rail', false);
+    }
+}
 </script>
 
 <template>
@@ -29,14 +37,14 @@ defineProps({
         >
         <!-- Hamburger Menu Header -->
         <div class="d-flex align-center py-3 px-4">
-            <v-spacer />
             <v-btn
             density="compact"
             icon="mdi-menu"
             variant="text"
-            @click="rail = !rail"
+            @click="emit('update:rail', !rail)"
             class="d-md-none"
             />
+            <v-spacer />
         </div>
 
         <v-list nav>
@@ -67,6 +75,7 @@ defineProps({
                         <v-list-item
                         v-bind="props"
                         prepend-icon="mdi-cog"
+                        @click="settingsClick"
                         >
                         <span v-show="!rail">
                             設定
