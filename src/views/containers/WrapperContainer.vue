@@ -7,6 +7,7 @@ import { signOut } from 'firebase/auth';
 import { firebaseAuth } from '@/config/firebase';
 import FloatingActionButtons from '@/components/FloatingActionButtons.vue';
 import AddItemDialog from '@/components/AddItemDialog.vue';
+import { create } from '@/firestoreOperation';
 
 const items = ref([]);
 const rail = ref(false);
@@ -35,8 +36,12 @@ const signout = () => {
     });
 };
 
-const memoCreateButoon = async () => {
-
+const memoCreateButton = async () => {
+    console.log('create memo');
+    const docRef = await create(['memos'], {
+        title: 'タイトル',
+        createdAt: new Date()
+    });
 };
 </script>
 
@@ -49,6 +54,7 @@ const memoCreateButoon = async () => {
                 :memo-button="() => navigate('/memos')"
                 :rail = "rail"
                 v-model:rail="rail"
+                :memo-create-button="() => memoCreateButton()"
             ></Navigationvar>
         </div>
         

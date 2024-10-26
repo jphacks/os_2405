@@ -84,7 +84,7 @@ const settingsClick = () => {
                                 size="small"
                                 variant="text"
                                 class="add-button mr-2"
-                                @click="memoCreateButoon"
+                                @click="memoCreateButton"
                             />
                         </div>
                     </v-list-item>
