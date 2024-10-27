@@ -5,6 +5,7 @@ import Navigationvar from '@/components/Navigationvar.vue';
 import { navigate } from '@/function';
 import { signOut } from 'firebase/auth';
 import { firebaseAuth } from '@/config/firebase';
+import { create } from '@/firestoreOperation';
 import FloatingActionButtons from '@/components/FloatingActionButtons.vue';
 import AddItemDialog from '@/components/AddItemDialog.vue';
 
@@ -34,6 +35,23 @@ const signout = () => {
         console.error('Sign out error:', error);
     });
 };
+
+/**
+ * フォームの入力内容をFirestoreに登録する
+ */
+ const submitNewData = async (title, quantity, date) => {
+    const addItem = {
+        title: title,
+        quantity: quantity,
+        deadline: date,
+        createdAt: new Date()
+    }
+    try {
+        await create(['items'], addItem);
+    } catch (error) {
+        console.error(error);
+    }
+}
 </script>
 
 <template>
@@ -63,6 +81,9 @@ const signout = () => {
                 max-width="400"
             >
                 <AddItemDialog 
+                    :button_function="submitNewData"
+                    button_text="登録する"
+                    @close="dialog = false"
                 />
             </v-dialog>
         </div>

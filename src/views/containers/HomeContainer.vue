@@ -1,6 +1,24 @@
 <script setup>
 import TodoItem from '@/components/TodoItem.vue';
 
+/**
+ * フォームの入力内容をFirestoreに登録する
+ */
+ const submitNewData = async (title, quantity, date) => {
+    const addItem = {
+        title: title,
+        quantity: quantity,
+        deadline: date,
+        createdAt: new Date()
+    }
+
+    try {
+        await create(['items'], addItem);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 defineProps({
     items: {
         type: Array,

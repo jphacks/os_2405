@@ -9,25 +9,24 @@ const date = ref('');
 const title = ref('');
 const quantity = ref(0);
 
-const emit = defineEmits(['update:title', 'update:quantity', 'update:date'])
+const emit = defineEmits(['update:title', 'update:quantity', 'update:date', 'close'])
 
-/**
- * フォームの入力内容をFirestoreに登録する
- */
-const submitForm = async () => {
-    const addItem = {
-        title: title.value,
-        quantity: quantity.value,
-        deadline: date.value,
-        createdAt: new Date()
-    }
+defineProps({
+    button_function: {
+        type: Function,
+        default: () => { console.log('ボタンが押されました') }
+    },
+    button_text: {
+        type: String,
+        default: 'button'
+    },
+});
 
-    try {
-        await create(['items'], addItem);
-    } catch (error) {
-        console.error(error);
-    }
-}
+// ダイアログを閉じるための関数
+const closeDialog = () => {
+    emit('close');
+};
+
 </script>
 
 <template>
@@ -37,7 +36,7 @@ const submitForm = async () => {
             <v-btn
                 icon
                 variant="text"
-                @click="closeDialog"
+                @click=closeDialog
             >
                 <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -61,9 +60,9 @@ const submitForm = async () => {
             <v-btn
                 color="primary"
                 class="my-btn font-weight-bold"
-                @click="submitForm"
+                @click="button_function(title, quantity, date)"
             >
-                登録する
+                {{ button_text }}
             </v-btn>
         </div>
     </v-card>
