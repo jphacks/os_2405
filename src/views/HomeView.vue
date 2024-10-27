@@ -11,21 +11,10 @@ defineProps({
     },
 })
 
-const memoItems = ref([]);
-
-onMounted(async() => {
-    try {
-        memoItems.value = await readMemos();
-    } catch (error) {
-        console.log("error");
-    }
-})
 </script>
 
 <template>
-    <WrapperContainer
-        :memo-items="memoItems"
-    >
+    <WrapperContainer>
         <HomeContainer 
             :items="items"
         />

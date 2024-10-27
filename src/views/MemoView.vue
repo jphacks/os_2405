@@ -6,9 +6,6 @@ import { onMounted } from 'vue';
 
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { firestore, firebaseAuth } from "@/config/firebase";
-import { readMemos } from '@/firestoreOperation';
-
-const memoItems = ref([]);
 
 onMounted(async () => {
     console.log("mounted");
@@ -17,8 +14,6 @@ onMounted(async () => {
 
     try {
         const items = await readWithMemoId(['items'], memoId);
-        
-        memoItems.value = await readMemos();
     } catch (error) {
         console.error("Error fetching items:", error);
     }
@@ -48,9 +43,7 @@ onMounted(async () => {
 
 <template>
 
-    <WrapperContainer
-        :memoItems="memoItems"
-    >
+    <WrapperContainer>
         <MemoContainer
             title="後で変える"
             :items="sampleMemos"

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { create, readWithConditionLoginUser } from '@/firestoreOperation';
+import { create, readMemos, readWithConditionLoginUser } from '@/firestoreOperation';
 import Navigationvar from '@/components/Navigationvar.vue';
 import { navigate } from '@/function';
 import { signOut } from 'firebase/auth';
@@ -9,22 +9,8 @@ import FloatingActionButtons from '@/components/FloatingActionButtons.vue';
 import AddItemDialog from '@/components/AddItemDialog.vue';
 import MakeNewMemo from '@/components/MakeNewMemo.vue';
 
-defineProps({
-    memoItems: {
-        type: Array,
-        required: true,
-    },
-})
-
 const rail = ref(false);
 const dialog = ref(false);
-
-//マウント時に実行
-onMounted(async () => {
-    //データの取得
-    // const data = await readWithConditionLoginUser(['items']);
-    // items.value = data;
-});
 
 const signout = () => {
     signOut(firebaseAuth).then(() => {
@@ -51,6 +37,13 @@ const memoCreate = async (title) => {
     });
     closeDialog();
 }
+
+const memoItems = ref([])
+
+onMounted(async() => {
+    memoItems.value = await readMemos();
+})
+
 </script>
 
 <template>
