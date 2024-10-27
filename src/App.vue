@@ -30,11 +30,6 @@ onMounted(() => {
   <v-app>
     <v-main>
       <v-container>
-        
-        <div v-if="currentUser">
-          <p>email {{ currentUser.emailVerified }}</p>
-        </div>
-
         <div class="progress-container" v-show="loading">
           <v-progress-circular
             color="green"
