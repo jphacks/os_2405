@@ -7,7 +7,7 @@ import { signOut } from 'firebase/auth';
 import { firebaseAuth } from '@/config/firebase';
 import FloatingActionButtons from '@/components/FloatingActionButtons.vue';
 import AddItemDialog from '@/components/AddItemDialog.vue';
-import { create } from '@/firestoreOperation';
+import MakeNewMemo from '@/components/MakeNewMemo.vue';
 
 const items = ref([]);
 const rail = ref(false);
@@ -36,13 +36,16 @@ const signout = () => {
     });
 };
 
-const memoCreateButton = async () => {
-    console.log('create memo');
-    const docRef = await create(['memos'], {
-        title: 'タイトル',
-        createdAt: new Date()
-    });
-};
+const memoDialog = ref(false);
+
+const closeDialog = () => {
+    memoDialog.value = false;
+}
+
+const openDialog = () => {
+    console.log('open');
+    memoDialog.value = true;
+}
 </script>
 
 <template>
@@ -54,7 +57,7 @@ const memoCreateButton = async () => {
                 :memo-button="() => navigate('/memos')"
                 :rail = "rail"
                 v-model:rail="rail"
-                :memo-create-button="() => memoCreateButton()"
+                :memo-create-button="() => openDialog()"
             ></Navigationvar>
         </div>
         
@@ -73,6 +76,16 @@ const memoCreateButton = async () => {
                 max-width="400"
             >
                 <AddItemDialog 
+                />
+            </v-dialog>
+
+            <v-dialog
+                v-model="memoDialog"
+                max-width="400"
+            >
+                <MakeNewMemo 
+                    :close-dialog="() => closeDialog()"
+                    :dialog="memoDialog"
                 />
             </v-dialog>
         </div>
