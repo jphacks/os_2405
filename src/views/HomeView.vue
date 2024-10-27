@@ -1,8 +1,15 @@
 <script setup>
-import { ref, onMounted} from 'vue';
+import { readMemos } from '@/firestoreOperation';
 import HomeContainer from '@/views/containers/HomeContainer.vue';
 import WrapperContainer from '@/views/containers/WrapperContainer.vue';
+import { defineProps, ref, onMounted } from 'vue';
 import { readWithConditionLoginUser } from '@/firestoreOperation';
+defineProps({
+    items: {
+        type: Array,
+        required: true,
+    },
+})
 
 const items = ref([]); // items を ref で定義
 

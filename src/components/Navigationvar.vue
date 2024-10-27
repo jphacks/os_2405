@@ -1,4 +1,7 @@
 <script setup>
+import { defineProps, defineEmits } from 'vue';
+import { navigateWithQuery } from '@/function';
+
 const props = defineProps({
     handleLogout: {
         type: Function,
@@ -8,13 +11,30 @@ const props = defineProps({
         type: Function,
         required: true
     },
-    memoButton: {
-        type: Function,
-        required: true
-    },
     rail: {
         type: Boolean,
         default: false
+    },
+    memoCreateButton: {
+        type: Function,
+        required: true
+    },
+    memoItems: {
+        type: Array,
+        default: () => [
+            {
+                title: "hoge" ,
+                createdAt: new Date(),
+                userID: "hogehoge",
+                id: 1
+            },
+            {
+                title: "hello",
+                createdAt: new Date(),
+                userID: "na",
+                id: 2
+            }
+        ]
     }
 })
 
@@ -38,11 +58,11 @@ const settingsClick = () => {
         <!-- Hamburger Menu Header -->
         <div class="d-flex align-center py-3 px-4">
             <v-btn
-            density="compact"
-            icon="mdi-menu"
-            variant="text"
-            @click="emit('update:rail', !rail)"
-            class="d-md-none"
+                density="compact"
+                icon="mdi-menu"
+                variant="text"
+                @click="emit('update:rail', !rail)"
+                class="d-md-none"
             />
             <v-spacer />
         </div>
@@ -60,19 +80,44 @@ const settingsClick = () => {
             </v-list-item>
 
             <!-- Memo List -->
-            <v-list-item
-                prepend-icon="mdi-note-text"
-                value="memos"
-                @click="memoButton"
-            >
-                <span v-show="!rail">
-                    メモ
-                </span>
+            <v-list-group value="memo">
+                <template v-slot:activator="{ props }">
+                    <v-list-item
+                        v-bind="props"
+                        prepend-icon="mdi-note-text"
+                        class="memo-item"
+                    >
+                        <div class="d-flex align-center w-100">
+                            <span v-show="!rail" class="flex-grow-1">
+                                メモ一覧
+                            </span>
+                            <v-btn
+                                v-show="!rail"
+                                icon="mdi-plus"
+                                density="compact"
+                                size="small"
+                                variant="text"
+                                class="add-button mr-2"
+                                @click.stop="memoCreateButton"
+                            />
+                        </div>
+                    </v-list-item>
+                </template>
+                <v-list-item
+                    class="pl-4"
+                    v-for="memo in memoItems"
+                    @click="() => navigateWithQuery('MemoView', memo.id)"
+                    :key="memo.id"
+                >
+                    {{ memo.title }}
                 </v-list-item>
+    
+            </v-list-group>
                 
-                <v-list-group value="settings">
-                    <template v-slot:activator="{ props }">
-                        <v-list-item
+            <!-- Settings -->
+            <v-list-group value="settings">
+                <template v-slot:activator="{ props }">
+                    <v-list-item
                         v-bind="props"
                         prepend-icon="mdi-cog"
                         @click="settingsClick"
@@ -81,8 +126,8 @@ const settingsClick = () => {
                             設定
                         </span>
                     </v-list-item>
-                </template>
-                
+                 </template>
+            
                 <v-list-item
                     prepend-icon="mdi-logout"
                     value="logout"
@@ -114,5 +159,15 @@ span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.add-button {
+    position: absolute;
+    right: 32px; /* 矢印の位置に合わせて調整 */
+}
+
+/* プラスボタンのホバー時のスタイル */
+.add-button:hover {
+    background-color: rgba(0, 0, 0, 0.04);
 }
 </style>
