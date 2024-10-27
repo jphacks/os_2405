@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { readWithConditionLoginUser } from '@/firestoreOperation';
+import { create, readWithConditionLoginUser } from '@/firestoreOperation';
 import Navigationvar from '@/components/Navigationvar.vue';
 import { navigate } from '@/function';
 import { signOut } from 'firebase/auth';
@@ -46,6 +46,14 @@ const openDialog = () => {
     console.log('open');
     memoDialog.value = true;
 }
+
+const memoCreate = async (title) => {
+    const memoRef = await create(['memos'], {
+        title: title,
+        createdAt: new Date()
+    });
+    closeDialog();
+}
 </script>
 
 <template>
@@ -85,6 +93,7 @@ const openDialog = () => {
             >
                 <MakeNewMemo 
                     :close-dialog="() => closeDialog()"
+                    :memo-create="memoCreate"
                     :dialog="memoDialog"
                 />
             </v-dialog>

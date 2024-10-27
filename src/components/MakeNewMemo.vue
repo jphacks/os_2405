@@ -19,6 +19,10 @@ defineProps({
         type: Function,
         required: true
     },
+    memoCreate: {
+        type: Function,
+        required: true
+    }
 });
 
 const memo_name = ref('');
@@ -52,7 +56,7 @@ const memo_name = ref('');
                     color="primary"
                     class="my-btn font-weight-bold"
                     variant="elevated"
-                    @click="closeDialog"
+                    @click="memoCreate(memo_name)"
                 >
                 メモ帳を作成
                 </v-btn>
