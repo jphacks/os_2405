@@ -56,7 +56,7 @@ const memo_name = ref('');
                     color="primary"
                     class="my-btn font-weight-bold"
                     variant="elevated"
-                    @click="memoCreate(memo_name)"
+                    @click="async () => memoCreate(memo_name)"
                 >
                 メモ帳を作成
                 </v-btn>
