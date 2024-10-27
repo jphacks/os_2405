@@ -36,6 +36,7 @@ const memoCreate = async (title) => {
         createdAt: new Date()
     });
     closeDialog();
+    window.location.reload(); //一旦ゴリ押し実装
 }
 
 const memoItems = ref([])

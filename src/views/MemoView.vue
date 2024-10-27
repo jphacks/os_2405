@@ -46,7 +46,7 @@ onMounted(async () => {
     <WrapperContainer>
         <MemoContainer
             title="後で変える"
-            :items="sampleMemos"
+            :items="[]"
         ></MemoContainer>
     </WrapperContainer>
 
