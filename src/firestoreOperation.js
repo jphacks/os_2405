@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs, query, where, doc, deleteDoc } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where, doc, deleteDoc, getDoc } from "firebase/firestore";
 import { firestore, firebaseAuth } from "@/config/firebase";
 
 /**
@@ -66,6 +66,29 @@ const readWithConditionLoginUser = async (collectionPath) => {
 };
 
 /**
+ * 指定したIDのデータを取得する関数
+ * @param {*} collectionPath (例: ['users', 'userid', 'items'])
+ * @param {*} docId (取得したいドキュメントのID)
+ * @returns ドキュメントデータ (存在しない場合はnull)
+ */
+const getDataByIdForCurrentUser = async (collectionPath, docId) => {
+    try {
+        // Firestoreのドキュメント参照を取得（doc内で展開）
+        const docRef = doc(firestore, ...collectionPath, docId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return docSnap.data(); // ドキュメントデータを返す
+        } else {
+            throw new Error("No such document!");
+        }
+    } catch (e) {
+        console.error("Error in getDataByIdForCurrentUser:", e); // エラーログを表示
+        throw new Error(e.message);
+    }
+};
+
+/**
  * 指定したIDのデータを削除する関数
  * @param {*} collectionPath (例: ['users', 'userid', 'items'])
  * @param {*} docId (削除したいドキュメントのID)
@@ -80,4 +103,4 @@ const deleteById = async (collectionPath, docId) => {
     }
 };
 
-export { create, read, readWithConditionLoginUser , deleteById};
+export { create, read, readWithConditionLoginUser , deleteById, getDataByIdForCurrentUser};

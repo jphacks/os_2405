@@ -137,6 +137,7 @@ const closeDialog = () => {
         max-width="400"
     >
         <AddItemDialog 
+            :id="id"
             :button_function="submitEditData"
             button_text="変更を保存する"
             @close="dialog = false"
