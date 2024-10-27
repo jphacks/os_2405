@@ -28,12 +28,14 @@ const props = defineProps({
             {
                 title: "hoge" ,
                 createdAt: new Date(),
-                userID: "hogehoge"
+                userID: "hogehoge",
+                id: 1
             },
             {
                 title: "hello",
                 createdAt: new Date(),
-                userID: "na"
+                userID: "na",
+                id: 2
             }
         ]
     }
@@ -81,7 +83,6 @@ const settingsClick = () => {
             </v-list-item>
 
             <!-- Memo List -->
-            <!-- Memo List -->
             <v-list-group value="memo">
                 <template v-slot:activator="{ props }">
                     <v-list-item
@@ -107,9 +108,10 @@ const settingsClick = () => {
                     </v-list-item>
                 </template>
                 <v-list-item
-                    @click="handleLogout"
                     class="pl-4"
                     v-for="memo in memoItems"
+                    @click="handleMemoClick(memo.id)"
+                    :key="memo.id"
                 >
                     {{ memo.title }}
                 </v-list-item>
