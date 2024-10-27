@@ -2,8 +2,9 @@
 import InputDateField from '@/components/InputDateField.vue';
 import InputField from '@/components/InputField.vue';
 import NumberInput from '@/components/NumberInput.vue';
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { create } from '@/firestoreOperation';
+import { getDataByIdForCurrentUser } from '@/firestoreOperation';
 
 const date = ref('');
 const title = ref('');
@@ -11,7 +12,11 @@ const quantity = ref(0);
 
 const emit = defineEmits(['update:title', 'update:quantity', 'update:date', 'close'])
 
-defineProps({
+const props = defineProps({
+    id: {
+        type: [String, Number],
+        default: ''
+    },
     button_function: {
         type: Function,
         default: () => { console.log('ボタンが押されました') }
@@ -26,6 +31,21 @@ defineProps({
 const closeDialog = () => {
     emit('close');
 };
+
+onMounted(async () => {
+    // データを取得して items に代入
+    if(props.id!=''){
+        const data = await getDataByIdForCurrentUser(['items'], props.id)
+        title.value=data.title
+        date.value=data.deadline
+        quantity.value=data.quantity
+    }
+});
+
+const callButtonFunction = (id, title, quantity, date) => {
+    props.button_function(id, title, quantity, date)
+    closeDialog()
+}
 
 </script>
 
@@ -60,7 +80,7 @@ const closeDialog = () => {
             <v-btn
                 color="primary"
                 class="my-btn font-weight-bold"
-                @click="button_function(title, quantity, date)"
+                @click="callButtonFunction(id, title, quantity, date)"
             >
                 {{ button_text }}
             </v-btn>
