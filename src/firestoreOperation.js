@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs, query, where, doc, deleteDoc, getDoc } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where, doc, deleteDoc, getDoc, updateDoc } from "firebase/firestore";
 import { firestore, firebaseAuth } from "@/config/firebase";
 
 /**
@@ -103,4 +103,20 @@ const deleteById = async (collectionPath, docId) => {
     }
 };
 
-export { create, read, readWithConditionLoginUser , deleteById, getDataByIdForCurrentUser};
+/**
+ * 指定したIDのデータを更新する関数
+ * @param {Array} collectionPath - コレクションのパス (例: ['items'])
+ * @param {string} docId - 更新したいドキュメントのID
+ * @param {Object} newData - 更新するデータ (例: { title: '新しいタイトル', quantity: 5 })
+ */
+const updateById = async (collectionPath, docId, fields) => {
+    try {
+        const docRef = doc(firestore, ...collectionPath, docId); // ドキュメントリファレンスを取得
+        await updateDoc(docRef, fields); // 特定のフィールドを更新
+    } catch (error) {
+        throw new Error(`更新に失敗しました: ${error.message}`);
+    }
+};
+
+
+export { create, read, readWithConditionLoginUser , deleteById, getDataByIdForCurrentUser, updateById};

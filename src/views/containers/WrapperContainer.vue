@@ -39,7 +39,7 @@ const signout = () => {
 /**
  * フォームの入力内容をFirestoreに登録する
  */
- const submitNewData = async (title, quantity, date) => {
+ const submitNewData = async (not_use_param, title, quantity, date) => {
     const addItem = {
         title: title,
         quantity: quantity,

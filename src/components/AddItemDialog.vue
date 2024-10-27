@@ -75,7 +75,7 @@ onMounted(async () => {
             <v-btn
                 color="primary"
                 class="my-btn font-weight-bold"
-                @click="button_function(title, quantity, date)"
+                @click="button_function(id, title, quantity, date)"
             >
                 {{ button_text }}
             </v-btn>

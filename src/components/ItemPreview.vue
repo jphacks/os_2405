@@ -2,6 +2,7 @@
 import ItemDataField from '@/components/ItemDataField.vue';
 import AddItemDialog from '@/components/AddItemDialog.vue';
 import { deleteById } from '@/firestoreOperation';
+import { getDataByIdForCurrentUser, updateById } from '@/firestoreOperation';
 import { ref } from 'vue';
 
 const emit = defineEmits(['close'])
@@ -57,20 +58,17 @@ const closeDialog = () => {
  * フォームで入力された変更内容を反映させる
  * （詳細な実装は後回し中）
  */
- const submitEditData = async (title, quantity, date) => {
-    // const addItem = {
-    //     title: title,
-    //     quantity: quantity,
-    //     deadline: date,
-    //     createdAt: new Date()
-    // }
+ const submitEditData = async (id, title, quantity, date) => {
+    if(props.id!=''){
+        const fieldsToUpdate = {};
+        if (title) fieldsToUpdate.title = title;
+        if (quantity) fieldsToUpdate.quantity = quantity;
+        if (date) fieldsToUpdate.date = date;
 
-    // try {
-    //     await create(['items'], addItem);
-    // } catch (error) {
-    //     console.error(error);
-    // }
-    console.log('変更を保存するボタンが押されました')
+        await updateById(['items'], props.id, fieldsToUpdate);
+    } else {
+        console.log('変更するアイテムが存在しません');
+    }
 }
 
 </script>
