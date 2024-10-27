@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
+import { navigateWithQuery } from '@/function';
 
 const props = defineProps({
     handleLogout: {
@@ -7,10 +8,6 @@ const props = defineProps({
         required: true
     },
     myTaskButton: {
-        type: Function,
-        required: true
-    },
-    memoButton: {
         type: Function,
         required: true
     },
@@ -88,7 +85,6 @@ const settingsClick = () => {
                     <v-list-item
                         v-bind="props"
                         prepend-icon="mdi-note-text"
-                        @click="memoButton"
                         class="memo-item"
                     >
                         <div class="d-flex align-center w-100">
@@ -110,7 +106,7 @@ const settingsClick = () => {
                 <v-list-item
                     class="pl-4"
                     v-for="memo in memoItems"
-                    @click="handleMemoClick(memo.id)"
+                    @click="() => navigateWithQuery('MemoView', memo.id)"
                     :key="memo.id"
                 >
                     {{ memo.title }}

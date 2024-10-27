@@ -53,7 +53,6 @@ const memoCreate = async (title) => {
             <Navigationvar
                 :handle-logout="() => signout()"
                 :my-task-button="() => navigate('/')"
-                :memo-button="() => navigate('/memos')"
                 :rail = "rail"
                 v-model:rail="rail"
                 :memo-create-button="() => openDialog()"
