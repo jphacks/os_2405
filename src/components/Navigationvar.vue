@@ -1,6 +1,5 @@
 <script setup>
-import MakeNewMemo from '@/components/MakeNewMemo.vue';
-import { ref, defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
     handleLogout: {
