@@ -118,5 +118,33 @@ const updateById = async (collectionPath, docId, fields) => {
     }
 };
 
+/**
+ * 条件を指定してログインユーザーのメモを読み込む関数
+ * @returns {Promise<Array>} メモのIDとタイトルの配列
+ */
+const readMemosForCurrentUser = async () => {
+    try {
+        const user = firebaseAuth.currentUser;
+        if (!user) throw new Error('User not logged in');
 
-export { create, read, readWithConditionLoginUser , deleteById, getDataByIdForCurrentUser, updateById};
+        // 'memos' コレクションを参照
+        const dbCollection = collection(firestore, 'memos');
+
+        // クエリを作成: userId に基づいてフィルタリング
+        const snapshot = await getDocs(query(dbCollection, where('userID', '==', user.uid)));
+
+        // メモのIDとタイトルの配列を作成
+        const memos = snapshot.docs.map(doc => ({
+            id: doc.id,      // ドキュメントIDを追加
+            title: doc.data().title // タイトルを追加
+        }));
+
+        return memos; // メモの配列を返す
+    } catch (e) {
+        console.error('Error reading memos:', e);
+        return []; // エラー時は空の配列を返す
+    }
+};
+
+
+export { create, read, readWithConditionLoginUser , deleteById, getDataByIdForCurrentUser, updateById, readMemosForCurrentUser};

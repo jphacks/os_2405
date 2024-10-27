@@ -4,11 +4,14 @@ import InputField from '@/components/InputField.vue';
 import NumberInput from '@/components/NumberInput.vue';
 import { ref, watch, onMounted } from 'vue';
 import { create } from '@/firestoreOperation';
-import { getDataByIdForCurrentUser } from '@/firestoreOperation';
+import { getDataByIdForCurrentUser, readMemosForCurrentUser } from '@/firestoreOperation';
 
 const date = ref('');
 const title = ref('');
 const quantity = ref(0);
+const selectedMemo = ref(null);  
+const items = ref([]);            
+
 
 const emit = defineEmits(['update:title', 'update:quantity', 'update:date', 'close'])
 
@@ -33,6 +36,12 @@ const closeDialog = () => {
 };
 
 onMounted(async () => {
+    try {
+        items.value = await readMemosForCurrentUser(); // ユーザーのメモを取得
+    } catch (error) {
+        console.error('Error fetching memos:', error);
+    }
+
     // データを取得して items に代入
     if(props.id!=''){
         const data = await getDataByIdForCurrentUser(['items'], props.id)
@@ -42,8 +51,8 @@ onMounted(async () => {
     }
 });
 
-const callButtonFunction = (id, title, quantity, date) => {
-    props.button_function(id, title, quantity, date)
+const callButtonFunction = (id, title, quantity, date, selectedMemo) => {
+    props.button_function(id, title, quantity, date, selectedMemo)
     closeDialog()
 }
 
@@ -62,6 +71,14 @@ const callButtonFunction = (id, title, quantity, date) => {
             </v-btn>
         </v-card-title>
         <div class="mx-8 mb-8 form-content">
+            <v-select
+                v-model="selectedMemo"
+                :items="items" 
+                item-text="title"           
+                item-value="id"             
+                label="登録するメモ帳" 
+                @change="emit('update:selectedItem', selectedMemo)" 
+            ></v-select>
             <InputField
                 label="商品名"
                 v-model:value="title"
