@@ -1,4 +1,6 @@
 <script setup>
+import MakeNewMemo from '@/components/MakeNewMemo.vue';
+
 const props = defineProps({
     handleLogout: {
         type: Function,
@@ -28,6 +30,12 @@ const settingsClick = () => {
     if(props.rail) {
         emit('update:rail', false);
     }
+}
+
+const dialog = ref(false);
+
+const closeDialog = () => {
+    dialog.value = false;
 }
 </script>
 
@@ -129,6 +137,11 @@ const settingsClick = () => {
             </v-list-group>
         </v-list>
     </v-navigation-drawer>
+
+    <MakeNewMemo 
+        :close-dialog="() => closeDialog()"
+        :dialog="dialog"
+    />
   </template>
   
 <style scoped>
