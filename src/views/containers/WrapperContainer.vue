@@ -20,14 +20,6 @@ onMounted(async () => {
     // items.value = data;
 });
 
-const test = async () => {
-    //現在ログイン中のユーザーのデータを取得
-    const data = await readWithConditionLoginUser(['items']);
-    console.log(data);
-    //items.valueの末尾に追加
-    items.value.push(...data);
-};
-
 const signout = () => {
     signOut(firebaseAuth).then(() => {
         navigate('/login'); // Redirect to login page after sign out
@@ -43,7 +35,6 @@ const closeDialog = () => {
 }
 
 const openDialog = () => {
-    console.log('open');
     memoDialog.value = true;
 }
 
