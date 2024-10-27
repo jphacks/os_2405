@@ -9,7 +9,13 @@ import FloatingActionButtons from '@/components/FloatingActionButtons.vue';
 import AddItemDialog from '@/components/AddItemDialog.vue';
 import MakeNewMemo from '@/components/MakeNewMemo.vue';
 
-const items = ref([]);
+defineProps({
+    memoItems: {
+        type: Array,
+        required: true,
+    },
+})
+
 const rail = ref(false);
 const dialog = ref(false);
 
@@ -56,6 +62,7 @@ const memoCreate = async (title) => {
                 :rail = "rail"
                 v-model:rail="rail"
                 :memo-create-button="() => openDialog()"
+                :memo-items="memoItems"
             ></Navigationvar>
         </div>
         

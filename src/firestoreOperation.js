@@ -63,4 +63,22 @@ const readWithConditionLoginUser = async (collectionPath) => {
     }
 };
 
-export { create, read, readWithConditionLoginUser };
+//ユーザのidと一致するmemoをfirestoreの/memosから取得する
+const readMemos = async () => {
+    try {
+        const user = firebaseAuth.currentUser;
+        if (!user) throw new Error('User not logged in');
+        
+        const dbCollection = collection(firestore, 'memos');
+        const snapshot = await getDocs(query(dbCollection, where('userID', '==', user.uid)));
+        const data = snapshot.docs.map(doc => ({
+            id: doc.id, // ドキュメントIDを追加
+            ...doc.data()
+        }));
+        return data;
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+export { create, read, readWithConditionLoginUser, readMemos };
