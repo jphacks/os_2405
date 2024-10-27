@@ -2,22 +2,41 @@
 import MemoContainer from './containers/MemoContainer.vue';
 import WrapperContainer from './containers/WrapperContainer.vue';
 import router  from '@/router';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import { firestore, firebaseAuth } from "@/config/firebase";
+import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import { firestore } from "@/config/firebase";
+
+const items = ref([]);
+const memo = ref(null);
 
 onMounted(async () => {
     console.log("mounted");
     const memoId  = router.currentRoute.value.params.id;
-    console.log("memoID: " + memoId);
+    console.log("-----------------memoID: " + memoId);
 
     try {
-        const items = await readWithMemoId(['items'], memoId);
+        items.value = await readWithMemoId(['items'], memoId);
+        memo.value = await fetchMemoById(memoId);
+        console.log(await fetchMemoById(memoId))
     } catch (error) {
         console.error("Error fetching items:", error);
     }
 });
+
+const fetchMemoById = async (memoId) => {
+    try {
+        const docRef = doc(firestore, 'memos', memoId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            return { id: docSnap.id, ...docSnap.data() };
+        } else {
+            throw new Error('Document not found');
+        }
+    } catch (e) {
+        throw new Error(e);
+    }
+};
 
 /**
  * 特定のmemoIdを持つデータを読み込む関数
@@ -45,8 +64,9 @@ onMounted(async () => {
 
     <WrapperContainer>
         <MemoContainer
-            title="後で変える"
-            :items="[]"
+            v-if="memo"
+            :title="memo.title"
+            :items="items"
         ></MemoContainer>
     </WrapperContainer>
 
