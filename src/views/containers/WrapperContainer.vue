@@ -45,6 +45,22 @@ onMounted(async() => {
     memoItems.value = await readMemos();
 })
 
+/**
+ * フォームの入力内容をFirestoreに登録する
+ */
+ const submitNewData = async (title, quantity, date) => {
+    const addItem = {
+        title: title,
+        quantity: quantity,
+        deadline: date,
+        createdAt: new Date()
+    }
+    try {
+        await create(['items'], addItem);
+    } catch (error) {
+        console.error(error);
+    }
+}
 </script>
 
 <template>
@@ -75,6 +91,9 @@ onMounted(async() => {
                 max-width="400"
             >
                 <AddItemDialog 
+                    :button_function="submitNewData"
+                    button_text="登録する"
+                    @close="dialog = false"
                 />
             </v-dialog>
 

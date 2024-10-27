@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
+import ItemPreview from '@/components/ItemPreview.vue';
 
 const props = defineProps({
     id: {
@@ -21,6 +22,13 @@ const props = defineProps({
 });
 
 const dialog = ref(false);
+
+// チェックボックスのフラグ管理(データベースの値を反映させられるように！)
+const isChecked = ref(false);
+
+const updateCheckbox = () => {
+    isChecked=!isChecked;
+};
 
 /**
  * 日時をフォーマットする
@@ -45,6 +53,12 @@ const formattedDateTime = computed(() => {
             @click="dialog = true"
         >
             <div class="content-wrapper">
+                <v-checkbox
+                    v-model="isChecked" 
+                    @change="updateCheckbox"
+                    @click.stop
+                    class="checkbox"
+                ></v-checkbox>
                 <div class="title-wrapper">
                     <div class="title">{{ title }}</div>
                 </div>
@@ -60,36 +74,15 @@ const formattedDateTime = computed(() => {
             v-model="dialog"
             max-width="500px"
         >
-            <v-card>
-                <v-card-title class="text-h5 mb-2">
-                    {{ title }}
-                </v-card-title>
-
-                <v-card-text>
-                    <div class="detail-grid">
-                        <div class="detail-item">
-                            <div class="detail-label">登録日時</div>
-                            <div>{{ formattedDateTime }}</div>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <div class="detail-label">数量</div>
-                            <div>{{ quantity }}</div>
-                        </div>
-                    </div>
-                </v-card-text>
-
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                        color="primary"
-                        variant="text"
-                        @click="dialog = false"
-                    >
-                        閉じる
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
+            <ItemPreview 
+                :title="title"
+                :informations="[
+                    { label: '個数', value: quantity},
+                    { label: '期限', value: formattedDateTime },
+                    { label: 'メモ帳', value: 'ドラッグストア' },
+                ]"
+                @close="dialog = false"
+            />
         </v-dialog>
     </div>
 </template>
@@ -104,6 +97,7 @@ const formattedDateTime = computed(() => {
     cursor: pointer;
     transition: all 0.2s ease;
     overflow: hidden;
+    width: 100%; 
 }
 
 .title-card:hover {
