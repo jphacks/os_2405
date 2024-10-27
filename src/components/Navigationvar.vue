@@ -21,6 +21,21 @@ const props = defineProps({
     memoCreateButton: {
         type: Function,
         required: true
+    },
+    memoItems: {
+        type: Array,
+        default: () => [
+            {
+                title: "hoge" ,
+                createdAt: new Date(),
+                userID: "hogehoge"
+            },
+            {
+                title: "hello",
+                createdAt: new Date(),
+                userID: "na"
+            }
+        ]
     }
 })
 
@@ -77,7 +92,7 @@ const settingsClick = () => {
                     >
                         <div class="d-flex align-center w-100">
                             <span v-show="!rail" class="flex-grow-1">
-                                メモ
+                                メモ一覧
                             </span>
                             <v-btn
                                 v-show="!rail"
@@ -92,14 +107,11 @@ const settingsClick = () => {
                     </v-list-item>
                 </template>
                 <v-list-item
-                    prepend-icon="mdi-logout"
-                    value="logout"
                     @click="handleLogout"
                     class="pl-4"
+                    v-for="memo in memoItems"
                 >
-                    <span v-show="!rail">
-                        ログアウト
-                    </span>
+                    {{ memo.title }}
                 </v-list-item>
     
             </v-list-group>
