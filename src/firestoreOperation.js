@@ -17,8 +17,7 @@ const create = async (collectionPath, data) => {
         data.userID = user.uid;
 
         const dbCollection = collection(firestore, ...collectionPath);
-        await addDoc(dbCollection, data);
-
+        return await addDoc(dbCollection, data);
     } catch (e) {
         throw new Error(e);
     }
@@ -44,8 +43,7 @@ const read = async (collectionPath) => {
 
 /**
  * 条件を指定してデータを読み込む関数
- * @param {*} collectionPath (例: ['users', 'userid', 'items'])
- * @param {*} condition (例: ['price', '>', 1000])
+ * @param {*} collectionPath (例: ['items'])
  * @returns 
  */
 const readWithConditionLoginUser = async (collectionPath) => {
@@ -120,3 +118,22 @@ const updateById = async (collectionPath, docId, fields) => {
 
 
 export { create, read, readWithConditionLoginUser , deleteById, getDataByIdForCurrentUser, updateById};
+//ユーザのidと一致するmemoをfirestoreの/memosから取得する
+const readMemos = async () => {
+    try {
+        const user = firebaseAuth.currentUser;
+        if (!user) throw new Error('User not logged in');
+        
+        const dbCollection = collection(firestore, 'memos');
+        const snapshot = await getDocs(query(dbCollection, where('userID', '==', user.uid)));
+        const data = snapshot.docs.map(doc => ({
+            id: doc.id, // ドキュメントIDを追加
+            ...doc.data()
+        }));
+        return data;
+    } catch (e) {
+        throw new Error(e);
+    }
+}
+
+export { create, read, readWithConditionLoginUser, readMemos };

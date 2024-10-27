@@ -1,32 +1,16 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { readWithConditionLoginUser } from '@/firestoreOperation';
+import { create, readMemos, readWithConditionLoginUser } from '@/firestoreOperation';
 import Navigationvar from '@/components/Navigationvar.vue';
 import { navigate } from '@/function';
 import { signOut } from 'firebase/auth';
 import { firebaseAuth } from '@/config/firebase';
-import { create } from '@/firestoreOperation';
 import FloatingActionButtons from '@/components/FloatingActionButtons.vue';
 import AddItemDialog from '@/components/AddItemDialog.vue';
+import MakeNewMemo from '@/components/MakeNewMemo.vue';
 
-const items = ref([]);
 const rail = ref(false);
 const dialog = ref(false);
-
-//マウント時に実行
-onMounted(async () => {
-    //データの取得
-    // const data = await readWithConditionLoginUser(['items']);
-    // items.value = data;
-});
-
-const test = async () => {
-    //現在ログイン中のユーザーのデータを取得
-    const data = await readWithConditionLoginUser(['items']);
-    console.log(data);
-    //items.valueの末尾に追加
-    items.value.push(...data);
-};
 
 const signout = () => {
     signOut(firebaseAuth).then(() => {
@@ -35,6 +19,31 @@ const signout = () => {
         console.error('Sign out error:', error);
     });
 };
+
+const memoDialog = ref(false);
+
+const closeDialog = () => {
+    memoDialog.value = false;
+}
+
+const openDialog = () => {
+    memoDialog.value = true;
+}
+
+const memoCreate = async (title) => {
+    const memoRef = await create(['memos'], {
+        title: title,
+        createdAt: new Date()
+    });
+    closeDialog();
+    window.location.reload(); //一旦ゴリ押し実装
+}
+
+const memoItems = ref([])
+
+onMounted(async() => {
+    memoItems.value = await readMemos();
+})
 
 /**
  * フォームの入力内容をFirestoreに登録する
@@ -60,9 +69,10 @@ const signout = () => {
             <Navigationvar
                 :handle-logout="() => signout()"
                 :my-task-button="() => navigate('/')"
-                :memo-button="() => navigate('/memos')"
                 :rail = "rail"
                 v-model:rail="rail"
+                :memo-create-button="() => openDialog()"
+                :memo-items="memoItems"
             ></Navigationvar>
         </div>
         
@@ -84,6 +94,17 @@ const signout = () => {
                     :button_function="submitNewData"
                     button_text="登録する"
                     @close="dialog = false"
+                />
+            </v-dialog>
+
+            <v-dialog
+                v-model="memoDialog"
+                max-width="400"
+            >
+                <MakeNewMemo 
+                    :close-dialog="() => closeDialog()"
+                    :memo-create="memoCreate"
+                    :dialog="memoDialog"
                 />
             </v-dialog>
         </div>

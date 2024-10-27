@@ -43,6 +43,12 @@ const router = createRouter({
       name: 'memos',
       component: () => import('@/views/MemoView.vue'),
       meta: { requireAuth: true }
+    },
+    {
+      path: '/memo/:id',
+      name: 'MemoView',
+      component: () => import('@/views/MemoView.vue'),
+      props: true
     }
   ]
 })

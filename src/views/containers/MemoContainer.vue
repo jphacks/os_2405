@@ -74,7 +74,7 @@ defineProps({
 }
 
 .title-container {
-    width: 80%;
+    width: 100%;
     margin: 0 auto; /* 中央寄せ */
     display: block;
 }

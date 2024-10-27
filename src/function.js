@@ -32,4 +32,13 @@ const navigate = (path) => {
     router.push(path);
 }
 
-export { validate, navigate, areAllFieldsFilled };
+/**
+ * クエリ付きで画面遷移を行う用の関数 
+ * @param {*} name 例: 'home'
+ * @param {*} params 例: 1
+ */
+const navigateWithQuery = (name, id) => {
+    router.push({ name: name, params: { id: id } });
+}
+
+export { validate, navigate, areAllFieldsFilled, navigateWithQuery };
