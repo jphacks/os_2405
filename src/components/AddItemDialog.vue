@@ -42,6 +42,11 @@ onMounted(async () => {
     }
 });
 
+const callButtonFunction = (id, title, quantity, date) => {
+    props.button_function(id, title, quantity, date)
+    closeDialog()
+}
+
 </script>
 
 <template>
@@ -75,7 +80,7 @@ onMounted(async () => {
             <v-btn
                 color="primary"
                 class="my-btn font-weight-bold"
-                @click="button_function(id, title, quantity, date)"
+                @click="callButtonFunction(id, title, quantity, date)"
             >
                 {{ button_text }}
             </v-btn>
